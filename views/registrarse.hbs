@@ -1,0 +1,52 @@
+{{>header}}
+
+<body class="text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 order-md-1"></div>
+            <div class="col-md-8 order-md-1">
+             <h4 class="mb-3">Informaci&oacute;n de Registro</h4>
+                <form class="needs-validation" novalidate="">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="documentoIdentidad">Documento de identidad</label>
+                            <input type="text" class="form-control" id="documentoIdentidad" placeholder="" value="" required="">
+                            <div class="invalid-feedback">
+                            Documento de identidad es requerido.
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="nombre">Nombre Completo</label>
+                            <input type="text" class="form-control" id="nombre" placeholder="" value="" required="">
+                            <div class="invalid-feedback">
+                            Nombre Completo es requerido.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="correo">Correo <!--<span class="text-muted">(Optional)</span>--></label>
+                            <input type="email" class="form-control" id="correo" placeholder="you@example.com">
+                            <div class="invalid-feedback">
+                                Por favor ingrese correo electronico.
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="telefono">Tel&eacute;fono</label>
+                            <input type="text" class="form-control" id="telefono" placeholder="55 555 55 55 55" required="">
+                            <div class="invalid-feedback">
+                                Ingrese numero telefonico.
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="mb-4">
+                    <button class="btn btn-primary btn-lg btn-block" type="submit">Registrar</button>
+                </form>
+            </div>
+            <div class="col-md-2 order-md-1"></div>
+        </div>
+    </div>
+</body>
+
+
+{{>footer}}
