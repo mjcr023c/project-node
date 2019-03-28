@@ -34,6 +34,7 @@ app.get('/registrarse', (req, res) => {
 });
 
 app.post('/calculos', (req, res) => {
+    console.log(req.body);
     res.render('calculos', {
         estudiante: req.query.nombre,
         nota1: parseInt(req.body.nota1),
@@ -42,10 +43,17 @@ app.post('/calculos', (req, res) => {
     });
 });
 
-app.get('*', (req, res) => {
-    res.render('error', {
-        estudiante: 'error'
+app.post('/registro', (req, res) => {
+    res.render('registro', {
+        documentoIdentidad: req.body.documentoIdentidad,
+        nombre: req.body.nombre,
+        correo: req.body.correo,
+        telefono: req.body.telefono
     });
+});
+
+app.get('*', (req, res) => {
+    res.render('error');
 })
 
 app.listen(port, () => {
