@@ -4,27 +4,10 @@
 <link rel="stylesheet" href="/lib/bootstrap.min.css">
 <script src="/lib/jquery-1.12.2.min.js"></script>
 <script src="/lib/bootstrap.min.js"></script>
-<body class="text-center"></body>
+<body class="text-center">
     <div class="container">
         <h2>Lista de Cursos</h2>  
-        <script>
-
-function cargarDatos(){
-    var DatosJson = JSON.parse(JSON.stringify('../cursos.json'));
-    console.log(DatosJson.alumnoUTP.length);
-    $("#Table").append('<tr><td>Nombre</td>'+
-    '<td>Apellido paterno</td>' + 
-    '<td>Edad</td>');
-    for (i = 0; i < DatosJson.alumnoUTP.length; i++){
-
- $("#Table").append('<tr>' + 
-    '<td align="center" style="dislay: none;">' + DatosJson.alumnoUTP[i].nombre + '</td>'+
-    '<td align="center" style="dislay: none;">' + DatosJson.alumnoUTP[i].apePaterno + '</td>'+
-    '<td align="center" style="dislay: none;">' + DatosJson.alumnoUTP[i].edad + '</td>'+'</tr>');
-    }
-}
-
-</script>
+    
             <table class="table">
                 <thead>
                     <tr>
@@ -59,9 +42,6 @@ function cargarDatos(){
                 <option value="cursoD">{{this.nombre}}</option>
                 {{/each}}
             </select>
-            <div class="invalid-feedback">
-                Por favor ingrese la modalidad del curso .
-            </div>
             </br>   
             
                 <button type="button" class="btn btn-primary" type= "submit">Enviar</button>

@@ -1,3 +1,57 @@
 {{>header}}
 
+<body class="text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 order-md-1"></div>
+            <div class="col-md-8 order-md-1">
+             <h4 class="mb-3">Formulario para inscribirse en un curso</h4>
+             <p>Use este formulario para inscribirse en un curso</p>
+                <form class="needs-validation" action="/mensajeInscribir" method="post">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="documento">Documento de identidad</label>
+                            <input type="text" class="form-control" name="documento" placeholder="Documento" value="" required="true">
+                            <div class="invalid-feedback">
+                            El documento es requerido.
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="correo">Correo Electr&oacute;nico <!--<span class="text-muted">(Optional)</span>--></label>
+                            <input type="email" class="form-control" name="correo" placeholder="you@example.com">
+                            <div class="invalid-feedback">
+                                Por favor ingrese correo electronico.
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" class="form-control" name="nombre" placeholder="Nombre" value="" required="true">
+                            <div class="invalid-feedback">
+                            El documento es requerido.
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="cursoDisponible">Cursos Disponibles</label>
+                             <select name= "cursoDisponible" class="form-control">
+                                {{#each cursos}}
+                            <option value="cursoDisponible">{{this.nombre}}</option>
+                                 {{/each}}
+                
+                            </select>
+                        </div>
+                       
+                        <hr class="mb-4">
+                         <div class="col-md-4 mb-2"></div>
+                        <div class="col-md-4 mb-2">
+                            <button class="btn btn-primary btn-lg btn-block" type="submit">Enviar</button>
+                        </div>
+                         <div class="col-md-4 mb-2"></div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-2 order-md-1"></div>
+        </div>
+    </div>
+</body>
+
 {{>footer}}
