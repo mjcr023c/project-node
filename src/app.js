@@ -57,8 +57,17 @@ app.get('/logout', (req, res) => {
 });
 
 
-app.get('/buscarUsuario', (req, res) => {
-    res.render('buscarUsuario');
+app.get('/modificarUsuario', (req, res) => {
+    if (usuario != undefined && usuario.rol == 'coordinador') {
+        let usuarios = funciones.listarUsuarios();
+        console.log(usuarios);
+        res.render('modificarUsuario', {
+            usuario: usuario,
+            usuarios: usuarios
+        });
+    } else {
+        res.render('home', { usuario: usuario });
+    }
 });
 
 app.get('/verInscritos', (req, res) => {
@@ -66,12 +75,22 @@ app.get('/verInscritos', (req, res) => {
 });
 
 app.post('/buscarUsuario', (req, res) => {
+    let usuarios = funciones.listarUsuarios();
+    let usuarioModificar = funciones.buscarUsuario(req.body.documentoIdentidad);
+    res.render('modificarUsuario', {
+        usuario: usuario,
+        usuarioParaModificar: usuarioModificar,
+        usuarios: usuarios
+    });
+});
 
-    res.render('buscarUsuario', {
-        estudiante: req.query.nombre,
-        nota1: parseInt(req.body.nota1),
-        nota2: parseInt(req.body.nota2),
-        nota3: parseInt(req.body.nota3)
+app.post('/modificarUsuario', (req, res) => {
+    let usuarios = funciones.listarUsuarios();
+    let usuarioModificar = funciones.actualizar(req.body.documentoIdentidad, req.body.nombre, req.body.correo, req.body.telefono, req.body.rol);
+    res.render('modificarUsuario', {
+        usuario: usuario,
+        usuarioParaModificar: usuarioModificar,
+        usuarios: usuarios
     });
 });
 
@@ -96,7 +115,7 @@ app.post('/registro', (req, res) => {
 
 app.get('/crearCurso', (req, res) => {
     res.render('crearCurso', {
-
+        usuario: usuario
     });
 });
 
@@ -104,7 +123,8 @@ app.get('/inscribir', (req, res) => {
     let cursos = funciones.listarCursos();
     console.log(cursos);
     res.render('inscribir', {
-        cursos: cursos
+        cursos: cursos,
+        usuario: usuario
     });
 });
 
@@ -112,6 +132,7 @@ app.get('/verCursos', (req, res) => {
     let cursos = funciones.listarCursos();
     console.log(cursos);
     res.render('verCursos', {
+        usuario: usuario,
         cursos: cursos
     });
 });

@@ -1,13 +1,6 @@
-{{>header}}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="/lib/bootstrap.min.css">
-<script src="/lib/jquery-1.12.2.min.js"></script>
-<script src="/lib/bootstrap.min.js"></script>
-<body class="text-center">
-    <div class="container">
-        <h2>Lista de Cursos</h2>  
-    
+{{>headerLogin}}
+
+ <h2>Lista de Cursos</h2>  
             <table class="table">
                 <thead>
                     <tr>
@@ -21,20 +14,20 @@
                      </tr>
                 </thead>
                 <tbody>
-      {{#each cursos}}
-    <tr>
-      <td>{{this.idCurso}}</td>
-      <td>{{this.nombre}}</td>
-      <td>{{this.descripcionCurso}}</td>
-      <td>{{this.valorCurso}}</td>
-      <td>{{this.modalidadCurso}}</td>
-      <td>{{this.intensidadCurso}}</td>
-      <td>{{this.estado}}</td>
-    </tr>
-     {{/each}}
-  </tbody>
+                    {{#each cursos}}
+                    <tr>
+                    <td>{{this.idCurso}}</td>
+                    <td>{{this.nombre}}</td>
+                    <td>{{this.descripcionCurso}}</td>
+                    <td>{{this.valorCurso}}</td>
+                    <td>{{this.modalidadCurso}}</td>
+                    <td>{{this.intensidadCurso}}</td>
+                    <td>{{this.estado}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
             </table>
-    </div>
+
     <div class="container">
         <h2>Actualizar Cursos</h2> 
             <select name= "cursoDisponible" class="form-control">
@@ -65,6 +58,5 @@
        
     </div>
 
-</body>
 
 {{>footer}}

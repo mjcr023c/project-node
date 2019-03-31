@@ -1,9 +1,14 @@
-<navbar>
+<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
     <a href="/">Inicio</a>
     <a href="/crearCurso">Crear Curso</a>
     <a href="/verCursos">Ver Curso</a>
     <a href="/inscribir">Inscribir</a>
     <a href="/verInscritos">Ver Inscritos</a>
+    {{#ifCond usuario.rol 'coordinador'}}
+        <a href="/modificarUsuario">Modificar Usuario</a>
+        <a href="/eliminarUsuarioCurso">Eliminar de Curso</a>
+    {{else}}
+    {{/ifCond}}
     <a href="/logout">Cerrar sesi&oacute;n</a>
 </navbar>
 

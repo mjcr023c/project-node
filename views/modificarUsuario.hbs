@@ -1,45 +1,73 @@
-{{>header}}
+{{>headerLogin}}
 
 <body class="text-center">
     <div class="container">
+    <h4 class="mb-3">Buscar un usuario para modificar</h4>
+    <div class="col-md-3 order-md-1"></div>
+    <div class="col-md-6 mb-3">
+            <form class="needs-validation" action="/buscarUsuario" method="post">
+                    <div class="input-group">
+                    <label for="documentoIdentidad">Usuarios:&nbsp;</label>
+                            <select class="form-control" name="documentoIdentidad">
+                                {{#each usuarios}}
+                                     <option value="{{documentoIdentidad}}">{{documentoIdentidad }} - {{nombre }}</option>
+                                 {{/each}} 
+                            </select>
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary" type="submit">Buscar</button>
+                    </span>
+                    </div>
+            </form>
+             </div>
+           <div class="col-md-3 order-md-1"></div>
+<br>    {{#if usuarioParaModificar }}
         <div class="row">
             <div class="col-md-2 order-md-1"></div>
             <div class="col-md-8 order-md-1">
 
              <h4 class="mb-3">Modificar Informaci&oacute;n de Registro</h4>
-                <form class="needs-validation" action="/modificar" method="post">
+                <form class="needs-validation" action="/modificarUsuario" method="post">
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="documentoIdentidad">Documento de identidad</label>
-                            <input type="text" class="form-control" name="documentoIdentidad" placeholder="" value="" required="">
+                            <input type="text" class="form-control" name="documentoIdentidad" placeholder="" value="{{usuarioParaModificar.documentoIdentidad}}" required="true" readonly>
                             <div class="invalid-feedback">
                             Documento de identidad es requerido.
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="nombre">Nombre Completo</label>
-                            <input type="text" class="form-control" name="nombre" placeholder="" value="" required="">
+                            <input type="text" class="form-control" name="nombre" placeholder="" value="{{usuarioParaModificar.nombre}}" required="">
                             <div class="invalid-feedback">
                             Nombre Completo es requerido.
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="correo">Correo <!--<span class="text-muted">(Optional)</span>--></label>
-                            <input type="email" class="form-control" name="correo" placeholder="you@example.com">
+                            <input type="email" class="form-control" name="correo" placeholder="you@example.com" value="{{usuarioParaModificar.correo}}">
                             <div class="invalid-feedback">
                                 Por favor ingrese correo electronico.
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="telefono">Tel&eacute;fono</label>
-                            <input type="text" class="form-control" name="telefono" placeholder="55 555 55 55 55" required="">
+                            <input type="text" class="form-control" name="telefono" placeholder="55 555 55 55 55" required="" value="{{usuarioParaModificar.telefono}}">
                             <div class="invalid-feedback">
                                 Ingrese numero telefonico.
                             </div>
                         </div>
+                        <div class="col-md-12 mb-6">
+                            <label for="rol">Rol</label>
+                            <select class="form-control" name="rol">
+                                <option value="aspirante">Aspirante</option>
+                                <option value="coordinador">Coordinador</option>
+                            </select>
+                        </div>
+                        
                         <hr class="mb-4">
                          <div class="col-md-4 mb-2"></div>
                         <div class="col-md-4 mb-2">
+                            <br><br>
                             <button class="btn btn-primary btn-lg btn-block" type="submit">Modificar</button>
                         </div>
                          <div class="col-md-4 mb-2"></div>
@@ -50,6 +78,7 @@
             </div>
             <div class="col-md-2 order-md-1"></div>
         </div>
+{{/if}}
     </div>
 </body>
 

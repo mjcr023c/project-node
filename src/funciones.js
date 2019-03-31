@@ -77,6 +77,7 @@ const listar = () => {
     }
 }
 
+
 const listarInscritos = () => {
     try {
         inscripcion = require('../inscritos.json');
@@ -85,6 +86,17 @@ const listarInscritos = () => {
         inscripcion = [];
     }
 }
+
+const listarUsuarios = () => {
+    try {
+        listaUsuarios = require('../listadoUsuario.json');
+    } catch (error) {
+        console.log('Error' + error);
+        listaUsuarios = [];
+    }
+    return listaUsuarios;
+}
+
 
 const listarCurso = () => {
     try {
@@ -210,7 +222,7 @@ const mostrarpromedioalto = () => {
 
 let obtenerPromedio = (nota_uno, nota_dos, nota_tres) => ((nota_uno + nota_dos + nota_tres) / 3);
 
-const actualizar = (documentoIdentidad, nombre, correo, telefono) => {
+const actualizar = (documentoIdentidad, nombre, correo, telefono, rol) => {
     listar();
     let encontrado = listaUsuarios.find(buscar => buscar.documentoIdentidad == documentoIdentidad);
 
@@ -220,6 +232,7 @@ const actualizar = (documentoIdentidad, nombre, correo, telefono) => {
         encontrado['nombre'] = nombre;
         encontrado['correo'] = correo;
         encontrado['telefono'] = telefono;
+        encontrado['rol'] = rol;
         guardar();
     }
 }
@@ -247,6 +260,6 @@ module.exports = {
     crearCurso,
     listarCurso,
     listarCursos,
-    crearInscripcion
-
+    crearInscripcion,
+    listarUsuarios
 }
