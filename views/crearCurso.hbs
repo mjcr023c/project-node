@@ -1,0 +1,71 @@
+{{>header}}
+
+<body class="text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 order-md-1"></div>
+            <div class="col-md-8 order-md-1">
+             <h4 class="mb-3">Informaci&oacute;n para Crear el Curso</h4>
+                <form class="needs-validation" action="/mensaje" method="post">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="nombre">Nombre del curso</label>
+                            <input type="text" class="form-control" name="nombre" placeholder="" value="" required="true">
+                            <div class="invalid-feedback">
+                            El nombre es requerido.
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="id">Id de Curso</label>
+                            <input type="text" class="form-control" name="id" placeholder="" value="" required="true">
+                            <div class="invalid-feedback">
+                            Ingresar ID del curso.
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="modalidad">Modalidad <!--<span class="text-muted">(Optional)</span>--></label>
+                            <select class="form-control">
+                                <option value="presencial">Presencial</option>
+                                <option value="virtual">Virtual</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Por favor ingrese la modalidad del curso .
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="descripcion">Descripci&oacute;n</label>
+                            <input type="text" class="form-control" name="descripcion" required="true">
+                            <div class="invalid-feedback">
+                                Ingrese descripcion del curso.
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="valor">Valor</label>
+                            <input type="text" class="form-control" name="valor" required="true">
+                            <div class="invalid-feedback">
+                                Ingrese valor del curso.
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="intensidad">Intensidad Horaria</label>
+                            <input type="text" class="form-control" name="intensidad" required="true">
+                            <div class="invalid-feedback">
+                                Ingrese intensidad horaria del curso.
+                            </div>
+                        </div>
+                        <hr class="mb-4">
+                         <div class="col-md-4 mb-2"></div>
+                        <div class="col-md-4 mb-2">
+                            <button class="btn btn-primary btn-lg btn-block" type="submit">Enviar</button>
+                        </div>
+                         <div class="col-md-4 mb-2"></div>
+                    </div>
+                   
+                </form>
+            </div>
+            <div class="col-md-2 order-md-1"></div>
+        </div>
+    </div>
+</body>
+
+{{>footer}}
