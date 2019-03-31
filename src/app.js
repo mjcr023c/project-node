@@ -58,9 +58,13 @@ app.get('/logout', (req, res) => {
 
 
 app.get('/modificarUsuario', (req, res) => {
-    console.log(usuario);
-    if (usuario.rol == 'coordinador') {
-        res.render('modificarUsuario', { usuario: usuario });
+    if (usuario != undefined && usuario.rol == 'coordinador') {
+        let usuarios = funciones.listarUsuarios();
+        console.log(usuarios);
+        res.render('modificarUsuario', {
+            usuario: usuario,
+            usuarios: usuarios
+        });
     } else {
         res.render('home', { usuario: usuario });
     }
@@ -70,11 +74,23 @@ app.get('/verInscritos', (req, res) => {
     res.render('verInscritos', { usuario: usuario });
 });
 
-app.post('/modificarUsuario', (req, res) => {
-    usuarioModificar = funciones.buscarUsuario(req.body.documentoIdentidad);
+app.post('/buscarUsuario', (req, res) => {
+    let usuarios = funciones.listarUsuarios();
+    let usuarioModificar = funciones.buscarUsuario(req.body.documentoIdentidad);
     res.render('modificarUsuario', {
         usuario: usuario,
-        usuarioParaModificar: usuarioModificar
+        usuarioParaModificar: usuarioModificar,
+        usuarios: usuarios
+    });
+});
+
+app.post('/modificarUsuario', (req, res) => {
+    let usuarios = funciones.listarUsuarios();
+    let usuarioModificar = funciones.actualizar(req.body.documentoIdentidad, req.body.nombre, req.body.correo, req.body.telefono, req.body.rol);
+    res.render('modificarUsuario', {
+        usuario: usuario,
+        usuarioParaModificar: usuarioModificar,
+        usuarios: usuarios
     });
 });
 
