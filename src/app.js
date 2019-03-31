@@ -52,6 +52,42 @@ app.post('/registro', (req, res) => {
     });
 });
 
+app.get('/crearCurso', (req, res) => {
+    res.render('crearCurso', {
+
+    });
+});
+
+app.get('/inscribir', (req, res) => {
+    res.render('inscribir', {
+
+    });
+});
+
+app.get('/verCursos', (req, res) => {
+    res.render('verCursos', {
+
+    });
+});
+
+app.get('/verInscritos', (req, res) => {
+    res.render('verInscritos', {
+
+    });
+});
+
+app.post('/mensaje', (req, res) => {
+    res.render('mensaje', {
+        curso: req.body.nombre,
+        id: parseInt(req.body.id),
+        modalidad: req.body.modalidad,
+        descripcion: req.body.descripcion,
+        valor: parseInt(req.body.valor),
+        intensidad: parseInt(req.body.intensidad)
+    });
+});
+
+
 app.get('*', (req, res) => {
     res.render('error');
 })

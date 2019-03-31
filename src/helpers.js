@@ -14,3 +14,22 @@ hbs.registerHelper('crear', (documentoIdentidad, nombre, correo, telefono) => {
     }
     return funciones.crear(usuario);
 });
+
+hbs.registerHelper('crearCurso', (curso, id, modalidad, descripcion, valor, intensidad) => {
+    curso = {
+        nombre: curso,
+        id: id,
+        modalidad: modalidad,
+        descripcion: descripcion,
+        valor: valor,
+        intensidad: intensidad,
+        estado: 'disponible'
+    }
+
+    return funciones.crearCurso(curso);
+
+});
+
+hbs.registerHelper('listarCurso', () => {
+    return funciones.listarCurso();
+});

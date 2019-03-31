@@ -1,6 +1,7 @@
 const fs = require('fs');
 
 listaUsuarios = [];
+cursos = [];
 
 const crear = (usuario) => {
     listar();
@@ -22,12 +23,45 @@ const crear = (usuario) => {
     }
 }
 
+
+const crearCurso = (curso) => {
+    listarCurso();
+    let creacion = {
+        nombre: curso.nombre,
+        idCurso: curso.id,
+        modalidadCurso: curso.modalidad,
+        descripcionCurso: curso.descripcion,
+        valorCurso: curso.valor,
+        intensidadCurso: curso.intensidad,
+        estado: curso.estado
+    };
+    let duplicado = cursos.find(nom => nom.idCurso == creacion.idCurso)
+    if (!duplicado) {
+        cursos.push(creacion);
+        console.log(cursos);
+        guardarCurso();
+    } else {
+        console.log('Ya existe un curso con ese id');
+    }
+
+}
+
 const listar = () => {
     try {
         listaUsuarios = require('../listadoUsuario.json');
     } catch (error) {
         console.log('Error' + error);
         listaUsuarios = [];
+    }
+}
+
+
+const listarCurso = () => {
+    try {
+        cursos = require('../cursos.json');
+    } catch (error) {
+        console.log('Error' + error);
+        cursos = [];
     }
 }
 
@@ -43,6 +77,21 @@ const guardar = () => {
     });
     return mensaje;
 }
+
+const guardarCurso = () => {
+    let mensaje = '';
+    let datos = JSON.stringify(cursos);
+    fs.writeFile('./cursos.json', datos, (err) => {
+        if (err) {
+            mensaje = err;
+        } else {
+            mensaje = 'Información guardada con exito';
+        }
+    });
+    return mensaje;
+}
+
+
 
 const mostrar = () => {
     listar();
@@ -138,5 +187,8 @@ module.exports = {
     mostrarmat,
     mostrarpromedioalto,
     actualizar,
-    eliminar
+    eliminar,
+    crearCurso,
+    listarCurso
+
 }
