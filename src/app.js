@@ -9,7 +9,6 @@ const constantes = require('./constants');
 global.usuario = undefined;
 
 require('./helpers');
-const funciones = require('./funciones');
 
 const port = 3000;
 const directoriopublico = path.join(__dirname, '../public');

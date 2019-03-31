@@ -1,5 +1,9 @@
 {{>header}}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/lib/bootstrap.min.css">
+<script src="/lib/jquery-1.12.2.min.js"></script>
+<script src="/lib/bootstrap.min.js"></script>
 <body class="text-center"></body>
     <div class="container">
         <h2>Lista de Cursos</h2>  
@@ -41,7 +45,7 @@ function cargarDatos(){
       <td>{{this.descripcionCurso}}</td>
       <td>{{this.valorCurso}}</td>
       <td>{{this.modalidadCurso}}</td>
-      <td></td>
+      <td>{{this.intensidadCurso}}</td>
       <td>{{this.estado}}</td>
     </tr>
      {{/each}}
@@ -50,9 +54,10 @@ function cargarDatos(){
     </div>
     <div class="container">
         <h2>Actualizar Cursos</h2> 
-            <select class="form-control">
-                <option value="presencial">Presencial</option>
-                <option value="virtual">Virtual</option>
+            <select name= "cursoDisponible" class="form-control">
+                {{#each cursos}}
+                <option value="cursoD">{{this.nombre}}</option>
+                {{/each}}
             </select>
             <div class="invalid-feedback">
                 Por favor ingrese la modalidad del curso .
@@ -62,28 +67,24 @@ function cargarDatos(){
                 <button type="button" class="btn btn-primary" type= "submit">Enviar</button>
     </div>
 
+    <div class="container">
+        <h2>Ver Cursos como Interesado</h2> 
+         {{#each cursos}}
+        <div class="row">
+                <div class="col-md-6 mb-3">
+                    <h1>{{this.nombre}}</h1>
+                        <a href="#demo" class="btn btn-primary" data-toggle="collapse">Ver Descripci&oacute;n</a>
+                            <div id="demo" class="collapse">
+                                <p> Descripción:  {{this.descripcionCurso}}</p>  
+                                <p> Modalidad:  {{this.modalidadCurso}}</p>  
+                                <p> Intensidad Horaria: {{this.intensidadCurso}}</p>  
+                            </div>
+                 </div>
+        </div>         
+         {{/each}}
+       
+    </div>
+
 </body>
 
-
-
-
 {{>footer}}
-
-<!--<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Id Curso</th>
-      <th scope="col">Nombre</th>
-    </tr>
-  </thead>
-  <tbody>
-      {{#each cursos}}
-    <tr>
-      <th scope="row">1</th>
-      <td>{{this.idCurso}}</td>
-      <td>{{this.nombre}}</td>
-    </tr>
-     {{/each}}
-  </tbody>
-</table>!-->
