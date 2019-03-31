@@ -1,0 +1,22 @@
+{{>header}}
+<body class="text-center">
+    <div class="container">
+        <h4>Buscar Usuario</h4>
+            <form class="needs-validation" action="/buscarUsuario" method="post">
+                    
+                    <label for="documentoIdentidad">Documento de identidad</label>
+                    <input type="text" class="form-control" name="documentoIdentidad" placeholder="123456" value="" required="true">
+                    <div class="invalid-feedback">
+                        Documento de identidad es requerido.
+                    </div>
+                 
+                <hr class="mb-4"> 
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Buscar</button>
+            </form>
+
+       
+    </div>
+</body>
+
+
+{{>footer}}

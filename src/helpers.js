@@ -14,3 +14,7 @@ hbs.registerHelper('crear', (documentoIdentidad, nombre, correo, telefono) => {
     }
     return funciones.crear(usuario);
 });
+
+hbs.registerHelper('buscarUsuario', (documentoIdentidad) => {
+    return funciones.buscarUsuario(documentoIdentidad);
+});

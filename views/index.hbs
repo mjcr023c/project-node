@@ -1,16 +1,19 @@
 {{>header}}
 
 <body class="text-center">
+    {{> mensajes }}
     <div class="container">
     <div class="row">
         <div class="col-md-4 order-md-1"></div>
         <div class="col-md-4 order-md-1">
-            <form class="form-signin">
+            <form class="form-signin" action="/login"  method="post">
                 <h1 class="h3 mb-3 font-weight-normal">Autenticaci&oacute;n</h1>
-                <label for="inputUsuario" class="sr-only">Usuario</label>
-                <input type="text" id="inputUsuario" class="form-control" placeholder="Usuario" required="true" autofocus="">
-                <label for="inputPassword" class="sr-only">Password</label>
-                <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="true">
+                <!--<label for="inputUsuario" class="sr-only">Usuario</label>-->
+                <label for="username" class="sr-only">Documento de identidad</label>
+                <input type="text" name="username" class="form-control" placeholder="Documento de identidad" required="true" autofocus="">
+                <!-- <label for="inputPassword" class="sr-only">Password</label>
+               <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="true">-->
+                <br>
                 <div class="checkbox mb-3">
                     <label>
                     <a href="/registrarse">Registrarse</a>

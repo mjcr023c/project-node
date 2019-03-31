@@ -57,18 +57,13 @@ const mostrar = () => {
 
     );
 }
-const mostrarest = (nombre) => {
+const buscarUsuario = (documentoIdentidad) => {
     listar();
-    let est = listaUsuarios.find(buscar => buscar.nombre == nombre);
-
-    if (!est) {
-        console.log('No existe usuario');
+    let user = listaUsuarios.find(buscar => buscar.documentoIdentidad == documentoIdentidad);
+    if (!user) {
+        return undefined;
     } else {
-        console.log(est.nombre);
-        console.log('notas ');
-        console.log(' matematicas ' + est.matematicas);
-        console.log(' ingles ' + est.ingles);
-        console.log(' programacion ' + est.programacion + '.\n');
+        return user;
     }
 }
 
@@ -134,7 +129,7 @@ const eliminar = (documentoIdentidad) => {
 module.exports = {
     crear,
     mostrar,
-    mostrarest,
+    buscarUsuario,
     mostrarmat,
     mostrarpromedioalto,
     actualizar,
