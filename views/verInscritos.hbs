@@ -9,9 +9,11 @@
                     <h1>{{this.nombre}}</h1>
                         <a href="#demo" class="btn btn-primary" data-toggle="collapse">Ver Inscritos</a>
                             <div id="demo" class="collapse">
-                                <p> Descripción: </p>  
-                                <p> Modalidad:  </p>  
-                                <p> Intensidad Horaria: </p>  
+                                {{#each encontrado}}
+                                <p> Nombre: {{this.nombre}} </p>  
+                                <p> Documento: {{this.documento}} </p>  
+                                <p> Correo: {{this.correo}} </p>  
+                                {{/each}} 
                             </div>
                  </div>
         </div>         

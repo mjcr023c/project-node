@@ -248,6 +248,11 @@ const eliminar = (documentoIdentidad) => {
     }
 }
 
+const listarAlumnos = () => {
+    let encontrado = inscripcion.find(buscar => buscar.curso == cursos.nombre);
+    return encontrado;
+
+}
 
 module.exports = {
     crear,
@@ -261,5 +266,6 @@ module.exports = {
     listarCurso,
     listarCursos,
     crearInscripcion,
-    listarUsuarios
+    listarUsuarios,
+    listarAlumnos
 }
