@@ -19,7 +19,6 @@ app.set('view engine', 'hbs');
 app.use('/css', express.static(dirNode_modules + '/bootstrap/dist/css'));
 app.use('/js', express.static(dirNode_modules + '/jquery/dist'));
 app.use('/js', express.static(dirNode_modules + '/popper.js/dist'));
-
 app.use('/js', express.static(dirNode_modules + '/bootstrap/dist/js'));
 
 
@@ -69,6 +68,7 @@ app.get('/verCursos', (req, res) => {
 
     });
 });
+
 
 app.get('/verInscritos', (req, res) => {
     res.render('verInscritos', {
