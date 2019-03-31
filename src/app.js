@@ -105,7 +105,7 @@ app.get('/crearCurso', (req, res) => {
 
 app.get('/inscribir', (req, res) => {
     res.render('inscribir', {
-
+        usuario: usuario
     });
 });
 
@@ -131,8 +131,8 @@ app.post('/mensaje', (req, res) => {
         id: parseInt(req.body.id),
         modalidad: req.body.modalidad,
         descripcion: req.body.descripcion,
-        valor: parseInt(req.body.valor),
-        intensidad: parseInt(req.body.intensidad)
+        valor: req.body.valor,
+        intensidad: req.body.intensidad
     });
 });
 

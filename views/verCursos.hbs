@@ -1,28 +1,65 @@
 {{>headerLogin}}
-<h1>Ver Cursos</h1>
 
- <div class="container">
-    <div class="row">
-        <div class="col-md-8 order-md-1">
+ <h2>Lista de Cursos</h2>  
             <table class="table">
                 <thead>
                     <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Id Curso</th>
-                    <th scope="col">Nombre</th>
-                    </tr>
+                        <th>Id Curso</th>
+                        <th>Nombre</th>
+                        <th>Descripci&oacute;n</th>
+                        <th>Valor</th>
+                        <th>Modalidad</th>
+                        <th>Intensidad</th>
+                        <th>Estado</th>
+                     </tr>
                 </thead>
                 <tbody>
                     {{#each cursos}}
                     <tr>
-                    <th scope="row"></th>
                     <td>{{this.idCurso}}</td>
                     <td>{{this.nombre}}</td>
+                    <td>{{this.descripcionCurso}}</td>
+                    <td>{{this.valorCurso}}</td>
+                    <td>{{this.modalidadCurso}}</td>
+                    <td>{{this.intensidadCurso}}</td>
+                    <td>{{this.estado}}</td>
                     </tr>
                     {{/each}}
                 </tbody>
             </table>
-        </div>
+
+    <div class="container">
+        <h2>Actualizar Cursos</h2> 
+            <select name= "cursoDisponible" class="form-control">
+                {{#each cursos}}
+                <option value="cursoD">{{this.nombre}}</option>
+                {{/each}}
+            </select>
+            <div class="invalid-feedback">
+                Por favor ingrese la modalidad del curso .
+            </div>
+            </br>   
+            
+                <button type="button" class="btn btn-primary" type= "submit">Enviar</button>
     </div>
-</div>
+
+    <div class="container">
+        <h2>Ver Cursos como Interesado</h2> 
+         {{#each cursos}}
+        <div class="row">
+                <div class="col-md-6 mb-3">
+                    <h1>{{this.nombre}}</h1>
+                        <a href="#demo" class="btn btn-primary" data-toggle="collapse">Ver Descripci&oacute;n</a>
+                            <div id="demo" class="collapse">
+                                <p> Descripción:  {{this.descripcionCurso}}</p>  
+                                <p> Modalidad:  {{this.modalidadCurso}}</p>  
+                                <p> Intensidad Horaria: {{this.intensidadCurso}}</p>  
+                            </div>
+                 </div>
+        </div>         
+         {{/each}}
+       
+    </div>
+
+
 {{>footer}}
