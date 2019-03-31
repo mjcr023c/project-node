@@ -15,6 +15,10 @@ hbs.registerHelper('crear', (documentoIdentidad, nombre, correo, telefono) => {
     return funciones.crear(usuario);
 });
 
+hbs.registerHelper('buscarUsuario', (documentoIdentidad) => {
+    return funciones.buscarUsuario(documentoIdentidad);
+});
+
 hbs.registerHelper('crearCurso', (curso, id, modalidad, descripcion, valor, intensidad) => {
     curso = {
         nombre: curso,

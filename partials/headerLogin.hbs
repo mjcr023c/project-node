@@ -10,6 +10,8 @@
 
 <body>
     <header>
-        <img src="img/banner.jpg" width="100%" />
-        {{navbar}}
+         <img src="img/banner.jpg" width="100%" />
+         {{#if usuario }}
+           {{>navbar}}
+        {{/if}}
     </header>

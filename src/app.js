@@ -3,6 +3,11 @@ const app = express();
 const path = require('path');
 const hbs = require('hbs');
 const bodyParser = require('body-parser');
+const funciones = require('./funciones');
+const constantes = require('./constants');
+
+global.usuario = undefined;
+
 require('./helpers');
 const funciones = require('./funciones');
 
@@ -24,13 +29,51 @@ app.use('/js', express.static(dirNode_modules + '/bootstrap/dist/js'));
 
 
 app.get('/', (req, res) => {
-    res.render('index', {
-        estudiante: 'Josimar'
-    });
+    res.render('index');
 });
 
 app.get('/registrarse', (req, res) => {
     res.render('registrarse');
+});
+
+
+app.post('/login', (req, res) => {
+    usuario = funciones.buscarUsuario(req.body.username);
+    if (usuario != undefined) {
+        res.render('home', { usuario: usuario });
+    } else {
+        res.render('index', {
+            tipoMensaje: constantes.alertas.danger,
+            mensaje: constantes.mensajes.usuarioNoExiste
+        });
+    }
+});
+
+app.get('/logout', (req, res) => {
+    usuario = undefined;
+    res.render('index', {
+        tipoMensaje: constantes.alertas.success,
+        mensaje: constantes.mensajes.logoutSuccess
+    });
+});
+
+
+app.get('/buscarUsuario', (req, res) => {
+    res.render('buscarUsuario');
+});
+
+app.get('/verInscritos', (req, res) => {
+    res.render('verInscritos', { usuario: usuario });
+});
+
+app.post('/buscarUsuario', (req, res) => {
+
+    res.render('buscarUsuario', {
+        estudiante: req.query.nombre,
+        nota1: parseInt(req.body.nota1),
+        nota2: parseInt(req.body.nota2),
+        nota3: parseInt(req.body.nota3)
+    });
 });
 
 app.post('/calculos', (req, res) => {
