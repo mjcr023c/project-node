@@ -2,6 +2,7 @@ const fs = require('fs');
 
 listaUsuarios = [];
 cursos = [];
+inscripcion = [];
 
 const crear = (usuario) => {
     listar();
@@ -46,12 +47,43 @@ const crearCurso = (curso) => {
 
 }
 
+const crearInscripcion = (insCurso) => {
+    listarInscritos();
+    let inscribir = {
+        documento: insCurso.documento,
+        correo: insCurso.correo,
+        nombre: insCurso.nombre,
+        curso: insCurso.curso,
+        idCurso: insCurso.idCurso
+    };
+    let duplicado = inscripcion.find(nom => nom.idCurso == inscribir.idCurso);
+    if (!duplicado) {
+        inscripcion.push(inscribir);
+        console.log(inscripcion);
+        guardarInscrito();
+    } else {
+        console.log('Ya se matriculo en este curso');
+    }
+}
+
+
+
 const listar = () => {
     try {
         listaUsuarios = require('../listadoUsuario.json');
     } catch (error) {
         console.log('Error' + error);
         listaUsuarios = [];
+    }
+}
+
+
+const listarInscritos = () => {
+    try {
+        inscripcion = require('../inscritos.json');
+    } catch (error) {
+        console.log('Error' + error);
+        inscripcion = [];
     }
 }
 
@@ -120,7 +152,18 @@ const guardarCurso = () => {
     return mensaje;
 }
 
-
+const guardarInscrito = () => {
+    let mensaje = '';
+    let datos = JSON.stringify(inscripcion);
+    fs.writeFile('./inscritos.json', datos, (err) => {
+        if (err) {
+            mensaje = err;
+        } else {
+            mensaje = 'Información guardada con exito';
+        }
+    });
+    return mensaje;
+}
 
 const mostrar = () => {
     listar();
@@ -205,6 +248,7 @@ const eliminar = (documentoIdentidad) => {
     }
 }
 
+
 module.exports = {
     crear,
     mostrar,
@@ -216,6 +260,6 @@ module.exports = {
     crearCurso,
     listarCurso,
     listarCursos,
+    crearInscripcion,
     listarUsuarios
-
 }

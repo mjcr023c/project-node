@@ -120,7 +120,10 @@ app.get('/crearCurso', (req, res) => {
 });
 
 app.get('/inscribir', (req, res) => {
+    let cursos = funciones.listarCursos();
+    console.log(cursos);
     res.render('inscribir', {
+        cursos: cursos,
         usuario: usuario
     });
 });
@@ -136,8 +139,10 @@ app.get('/verCursos', (req, res) => {
 
 
 app.get('/verInscritos', (req, res) => {
+    let cursos = funciones.listarCursos();
+    console.log(cursos);
     res.render('verInscritos', {
-
+        cursos: cursos
     });
 });
 
@@ -152,6 +157,15 @@ app.post('/mensaje', (req, res) => {
     });
 });
 
+app.post('/mensajeInscribir', (req, res) => {
+    res.render('mensajeInscribir', {
+
+        documento: req.body.documento,
+        correo: req.body.correo,
+        nombre: req.body.nombre,
+        curso: req.body.cursoDisponible
+    });
+});
 
 app.get('*', (req, res) => {
     res.render('error');
