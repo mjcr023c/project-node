@@ -70,10 +70,6 @@ app.get('/modificarUsuario', (req, res) => {
     }
 });
 
-app.get('/verInscritos', (req, res) => {
-    res.render('verInscritos', { usuario: usuario });
-});
-
 app.post('/buscarUsuario', (req, res) => {
     let usuarios = funciones.listarUsuarios();
     let usuarioModificar = funciones.buscarUsuario(req.body.documentoIdentidad);
@@ -142,6 +138,7 @@ app.get('/verInscritos', (req, res) => {
     let cursos = funciones.listarCursos();
     console.log(cursos);
     res.render('verInscritos', {
+        usuario: usuario,
         cursos: cursos
     });
 });
