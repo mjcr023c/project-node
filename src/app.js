@@ -57,21 +57,24 @@ app.get('/logout', (req, res) => {
 });
 
 
-app.get('/buscarUsuario', (req, res) => {
-    res.render('buscarUsuario');
+app.get('/modificarUsuario', (req, res) => {
+    console.log(usuario);
+    if (usuario.rol == 'coordinador') {
+        res.render('modificarUsuario', { usuario: usuario });
+    } else {
+        res.render('home', { usuario: usuario });
+    }
 });
 
 app.get('/verInscritos', (req, res) => {
     res.render('verInscritos', { usuario: usuario });
 });
 
-app.post('/buscarUsuario', (req, res) => {
-
-    res.render('buscarUsuario', {
-        estudiante: req.query.nombre,
-        nota1: parseInt(req.body.nota1),
-        nota2: parseInt(req.body.nota2),
-        nota3: parseInt(req.body.nota3)
+app.post('/modificarUsuario', (req, res) => {
+    usuarioModificar = funciones.buscarUsuario(req.body.documentoIdentidad);
+    res.render('modificarUsuario', {
+        usuario: usuario,
+        usuarioParaModificar: usuarioModificar
     });
 });
 
@@ -96,7 +99,7 @@ app.post('/registro', (req, res) => {
 
 app.get('/crearCurso', (req, res) => {
     res.render('crearCurso', {
-
+        usuario: usuario
     });
 });
 
@@ -107,8 +110,11 @@ app.get('/inscribir', (req, res) => {
 });
 
 app.get('/verCursos', (req, res) => {
+    let cursos = funciones.listarCursos();
+    console.log(cursos);
     res.render('verCursos', {
-
+        usuario: usuario,
+        cursos: cursos
     });
 });
 

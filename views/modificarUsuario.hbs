@@ -1,13 +1,27 @@
-{{>header}}
+{{>headerLogin}}
 
 <body class="text-center">
     <div class="container">
+ <h4 class="mb-3">Buscar un usuario para modificar</h4>
+            <form class="needs-validation" action="/modificarUsuario" method="post">
+                    
+                    <label for="documentoIdentidad">Documento de identidad</label>
+                    <input type="text" class="form-control" name="documentoIdentidad" placeholder="123456" value="" required="true">
+                    <div class="invalid-feedback">
+                        Documento de identidad es requerido.
+                    </div>
+                 
+                <hr class="mb-4"> 
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Buscar</button>
+            </form>
+<br>
+       {{#if usuarioParaModificar }}
         <div class="row">
             <div class="col-md-2 order-md-1"></div>
             <div class="col-md-8 order-md-1">
 
              <h4 class="mb-3">Modificar Informaci&oacute;n de Registro</h4>
-                <form class="needs-validation" action="/modificar" method="post">
+                <form class="needs-validation" action="/modificarUsuario" method="post">
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="documentoIdentidad">Documento de identidad</label>
@@ -37,6 +51,13 @@
                                 Ingrese numero telefonico.
                             </div>
                         </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="rol">Rol</label>
+                            <select name="rol">
+                                <option value="aspirante">Aspirante</option>
+                                <option value="cordinador">Cordinador</option>
+                            </select>
+                        </div>
                         <hr class="mb-4">
                          <div class="col-md-4 mb-2"></div>
                         <div class="col-md-4 mb-2">
@@ -50,6 +71,7 @@
             </div>
             <div class="col-md-2 order-md-1"></div>
         </div>
+{{/if}}
     </div>
 </body>
 

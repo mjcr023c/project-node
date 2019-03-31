@@ -4,6 +4,10 @@
     <a href="/verCursos">Ver Curso</a>
     <a href="/inscribir">Inscribir</a>
     <a href="/verInscritos">Ver Inscritos</a>
+    {{#ifCond usuario.rol 'coordinador'}}
+        <a href="/modificarUsuario">Modificar Usuario</a>
+    {{else}}
+    {{/ifCond}}
     <a href="/logout">Cerrar sesi&oacute;n</a>
 </navbar>
 

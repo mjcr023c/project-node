@@ -65,6 +65,16 @@ const listarCurso = () => {
     }
 }
 
+const listarCursos = () => {
+    try {
+        cursos = require('../cursos.json');
+    } catch (error) {
+        console.log('Error' + error);
+        cursos = [];
+    }
+    return cursos;
+}
+
 const guardar = () => {
     let mensaje = '';
     let datos = JSON.stringify(listaUsuarios);
@@ -184,6 +194,7 @@ module.exports = {
     actualizar,
     eliminar,
     crearCurso,
-    listarCurso
+    listarCurso,
+    listarCursos
 
 }
