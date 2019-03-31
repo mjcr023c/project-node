@@ -4,6 +4,7 @@ const path = require('path');
 const hbs = require('hbs');
 const bodyParser = require('body-parser');
 require('./helpers');
+const funciones = require('./funciones');
 
 const port = 3000;
 const directoriopublico = path.join(__dirname, '../public');
@@ -64,8 +65,10 @@ app.get('/inscribir', (req, res) => {
 });
 
 app.get('/verCursos', (req, res) => {
+    let cursos = funciones.listarCursos();
+    console.log(cursos);
     res.render('verCursos', {
-
+        cursos: cursos
     });
 });
 
@@ -82,8 +85,8 @@ app.post('/mensaje', (req, res) => {
         id: parseInt(req.body.id),
         modalidad: req.body.modalidad,
         descripcion: req.body.descripcion,
-        valor: parseInt(req.body.valor),
-        intensidad: parseInt(req.body.intensidad)
+        valor: req.body.valor,
+        intensidad: req.body.intensidad
     });
 });
 
