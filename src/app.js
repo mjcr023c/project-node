@@ -92,6 +92,7 @@ app.post('/modificarUsuario', (req, res) => {
 
 app.post('/calculos', (req, res) => {
     console.log(req.body);
+    console.log(cursos);
     res.render('calculos', {
         estudiante: req.query.nombre,
         nota1: parseInt(req.body.nota1),
@@ -117,7 +118,7 @@ app.get('/crearCurso', (req, res) => {
 
 app.get('/inscribir', (req, res) => {
     let cursos = funciones.listarCursos();
-    console.log(cursos);
+
     res.render('inscribir', {
         cursos: cursos,
         usuario: usuario
@@ -158,12 +159,26 @@ app.post('/mensaje', (req, res) => {
 
 app.post('/mensajeInscribir', (req, res) => {
     res.render('mensajeInscribir', {
-
+        usuario: usuario,
         documento: req.body.documento,
         correo: req.body.correo,
         nombre: req.body.nombre,
         curso: req.body.cursoDisponible
     });
+});
+
+app.get('/misCursos', (req, res) => {
+    if (usuario == undefined) {
+        res.render('home', { usuario: usuario });
+    } else {
+        let cursos = funciones.buscarMisCursos(usuario.documentoIdentidad);
+        console.log(cursos);
+        res.render('misCursos', {
+            usuario: usuario,
+            cursos: cursos
+
+        });
+    }
 });
 
 app.get('*', (req, res) => {

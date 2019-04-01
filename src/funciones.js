@@ -56,13 +56,15 @@ const crearInscripcion = (insCurso) => {
         curso: insCurso.curso,
         idCurso: insCurso.idCurso
     };
-    let duplicado = inscripcion.find(nom => nom.idCurso == inscribir.idCurso);
+    let duplicado = inscripcion.find(nom => nom.idCurso == inscribir.idCurso && nom.documento == inscribir.documento);
+    console.log("duplicado");
+    console.log(duplicado);
     if (!duplicado) {
         inscripcion.push(inscribir);
-        console.log(inscripcion);
         guardarInscrito();
+        return 'Inscripcion Exitosa'
     } else {
-        console.log('Ya se matriculo en este curso');
+        return 'Ya se matriculo en este curso';
     }
 }
 
@@ -187,6 +189,26 @@ const buscarUsuario = (documentoIdentidad) => {
         return user;
     }
 }
+const buscarCurso = (idCurso) => {
+    listarCurso();
+    let curso = cursos.find(buscar => buscar.idCurso == idCurso);
+    if (!curso) {
+        return undefined;
+    } else {
+        return curso;
+    }
+}
+
+const buscarMisCursos = (documentoIdentidad) => {
+    listarInscritos();
+    let misCursosInscritos = inscripcion.filter(buscar => buscar.documento == documentoIdentidad);
+    if (!misCursosInscritos) {
+        return undefined;
+    } else {
+        return misCursosInscritos;
+    }
+}
+
 
 const mostrarmat = () => {
     listar();
@@ -267,5 +289,7 @@ module.exports = {
     listarCursos,
     crearInscripcion,
     listarUsuarios,
-    listarAlumnos
+    listarAlumnos,
+    buscarMisCursos,
+    buscarCurso
 }

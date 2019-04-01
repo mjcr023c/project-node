@@ -45,14 +45,21 @@ hbs.registerHelper('listarCurso', () => {
     return funciones.listarCurso();
 });
 
-hbs.registerHelper('crearInscripcion', (documento, correo, nombre, curso) => {
-    insCurso = {
-        documento: documento,
-        correo: correo,
-        nombre: nombre,
-        curso: curso,
-        idCurso: documento + curso
+hbs.registerHelper('crearInscripcion', (documento, correo, nombre, idCurso) => {
+    let infoCurso = funciones.buscarCurso(idCurso);
+    console.log(infoCurso);
+    if (infoCurso) {
+        insCurso = {
+            documento: documento,
+            correo: correo,
+            nombre: nombre,
+            curso: infoCurso.nombre,
+            idCurso: infoCurso.idCurso
+        }
+
+        return funciones.crearInscripcion(insCurso);
+    } else {
+        return 'Curso no existe'
     }
 
-    return funciones.crearInscripcion(insCurso);
 });

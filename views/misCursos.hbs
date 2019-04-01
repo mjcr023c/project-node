@@ -1,0 +1,23 @@
+{{>headerLogin}}
+{{#if cursos}}
+ <h2>Lista de mis Cursos</h2>  
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Id Curso</th>
+                        <th>Nombre</th>
+                     </tr>
+                </thead>
+                <tbody>
+                    {{#each cursos}}
+                    <tr>
+                    <td>{{this.idCurso}}</td>
+                    <td>{{this.curso}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+{{else}}
+<p>No se ha inscrito en un curso</p>
+{{/if}}
+{{>footer}}
