@@ -136,10 +136,12 @@ app.get('/verCursos', (req, res) => {
 
 app.get('/verInscritos', (req, res) => {
     let cursos = funciones.listarCursos();
+    let inscritos = funciones.listarAlumnos();
     console.log(cursos);
     res.render('verInscritos', {
         usuario: usuario,
-        cursos: cursos
+        cursos: cursos,
+        inscritos: inscritos
     });
 });
 
