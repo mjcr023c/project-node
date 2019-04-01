@@ -148,6 +148,7 @@ app.get('/verInscritos', (req, res) => {
 
 app.post('/mensaje', (req, res) => {
     res.render('mensaje', {
+        usuario: usuario,
         curso: req.body.nombre,
         id: parseInt(req.body.id),
         modalidad: req.body.modalidad,
