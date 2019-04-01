@@ -47,7 +47,6 @@ hbs.registerHelper('listarCurso', () => {
 
 hbs.registerHelper('crearInscripcion', (documento, correo, nombre, idCurso) => {
     let infoCurso = funciones.buscarCurso(idCurso);
-    console.log(infoCurso);
     if (infoCurso) {
         insCurso = {
             documento: documento,

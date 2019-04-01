@@ -39,10 +39,10 @@ const crearCurso = (curso) => {
     let duplicado = cursos.find(nom => nom.idCurso == creacion.idCurso)
     if (!duplicado) {
         cursos.push(creacion);
-        console.log(cursos);
         guardarCurso();
+        return 'Creacion Exitosa';
     } else {
-        console.log('Ya existe un curso con ese id');
+        return 'Ya existe un curso con ese id';
     }
 
 }
