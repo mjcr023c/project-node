@@ -1,52 +1,38 @@
-<!--
-    
-    <a href="/verCursos">Ver Curso</a>
-    <a href="/inscribir">Inscribir</a>
-    <a href="/verInscritos">Ver Inscritos</a>
-    {{#ifCond usuario.rol 'coordinador'}}
-        <a href="/crearCurso">Crear Curso</a>
-        <a href="/modificarUsuario">Modificar Usuario</a>
-        <a href="/eliminarUsuarioCurso">Eliminar de Curso</a>
-    {{else}}
-    {{/ifCond}}
-    <a href="/logout">Cerrar sesi&oacute;n</a>
-</navbar>
--->
 
-<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
- <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <a class="navbar-brand" href="#">Education</a>
-  <div class="collapse navbar-collapse" id="navbarNavDropdown">
-    <ul class="navbar-nav">
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Usuarios
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-         {{#ifCond usuario.rol 'coordinador'}} 
-            <a class="dropdown-item" href="/modificarUsuario">Modificar Usuario</a>
-        {{else}}
-        {{/ifCond}}
-        </div>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Cursos
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="/verCursos">Ver Curso</a>
-            <a class="dropdown-item" href="/inscribir">Inscribir</a>
-            <a class="dropdown-item" href="/verInscritos">Ver Inscritos</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+		    <span class="navbar-toggler-icon"></span>
+		  </button>
+		  <div class="collapse navbar-collapse" id="navbarNav">
+		    <ul class="navbar-nav mr-auto">
+		      <li class="nav-item ">
+		        <a class="nav-link" href="/">INICIO </a>
+		      </li>      
+		      <li class="nav-item">
+		        <a class="nav-link" href="/verCursos">CURSOS DISPONIBLES</a>
+		      </li> 
+		      <li class="nav-item">
+		        <a class="nav-link" href="/inscribir">INSCRIBIR</a>
+		      </li>  
+		      <li class="nav-item">
+		        <a class="nav-link" href="/miscursos">MIS CURSOS</a>
+		      </li>
           {{#ifCond usuario.rol 'coordinador'}}
-            <a class="dropdown-item" href="/crearCurso">Crear Curso</a>
-            <a class="dropdown-item" href="/eliminarUsuarioCurso">Eliminar de Curso</a>
-        {{else}}
-        {{/ifCond}}
-        </div>
-      </li>
-      <li class="nav-item"><a href="/logout">Cerrar sesi&oacute;n</a></li>
-    </ul>
-  </div>
-</nav>
+          <li class="nav-item">
+		        <a class="nav-link" href="/crearCurso">CREAR CURSOS</a>
+		      </li>
+          <li class="nav-item">
+		        <a class="nav-link" href="/eliminarUsuarioCurso">ELIMINAR CURSOS</a>
+		      </li>
+          <li class="nav-item">
+		        <a class="nav-link" href="/modificarUsuario">MODIFICAR USUARIOS</a>
+		      </li>
+          {{/ifCond}}
+		    </ul>
+		    <form class="form-inline my-2 my-lg-0" action="/logout">
+		      <label>{{usuario.nombre}}</label>
+		      <button class="btn btn-danger my-2 my-sm-0" type="submit">Salir</button>
+          
+		    </form>
+		  </div>
+		</nav>

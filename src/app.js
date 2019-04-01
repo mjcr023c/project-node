@@ -10,7 +10,7 @@ global.usuario = undefined;
 
 require('./helpers');
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 const directoriopublico = path.join(__dirname, '../public');
 const directoriopartials = path.join(__dirname, '../partials');
 const dirNode_modules = path.join(__dirname, '../node_modules')
