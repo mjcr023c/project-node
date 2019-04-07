@@ -72,7 +72,7 @@ const crearInscripcion = (insCurso) => {
 
 const listar = () => {
     try {
-        listaUsuarios = require('../listadoUsuario.json');
+        listaUsuarios = require('../../listadoUsuario.json');
     } catch (error) {
         console.log('Error' + error);
         listaUsuarios = [];
@@ -82,7 +82,7 @@ const listar = () => {
 
 const listarInscritos = () => {
     try {
-        inscripcion = require('../inscritos.json');
+        inscripcion = require('../../inscritos.json');
     } catch (error) {
         console.log('Error' + error);
         inscripcion = [];
@@ -91,7 +91,7 @@ const listarInscritos = () => {
 
 const listarUsuarios = () => {
     try {
-        listaUsuarios = require('../listadoUsuario.json');
+        listaUsuarios = require('../../listadoUsuario.json');
     } catch (error) {
         console.log('Error' + error);
         listaUsuarios = [];
@@ -102,7 +102,7 @@ const listarUsuarios = () => {
 
 const listarCurso = () => {
     try {
-        cursos = require('../cursos.json');
+        cursos = require('../../cursos.json');
     } catch (error) {
         console.log('Error' + error);
         cursos = [];
@@ -111,7 +111,7 @@ const listarCurso = () => {
 
 const listarCursos = () => {
     try {
-        cursos = require('../cursos.json');
+        cursos = require('../../cursos.json');
     } catch (error) {
         console.log('Error' + error);
         cursos = [];
@@ -121,7 +121,7 @@ const listarCursos = () => {
 
 const obtenerInform = () => {
     try {
-        cursos = require('../cursos.json');
+        cursos = require('../../cursos.json');
     } catch (error) {
         console.log('Error' + error);
         cursos = [];

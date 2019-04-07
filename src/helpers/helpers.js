@@ -1,5 +1,5 @@
 const hbs = require('hbs');
-const funciones = require('./funciones');
+const funciones = require('../utils/funciones');
 
 hbs.registerHelper('obtenerPromedio', (nota1, nota2, nota3) => {
     return (nota1 + nota2 + nota3) / 3;
