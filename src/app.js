@@ -18,6 +18,22 @@ app.use('/js', express.static(dirNode_modules + '/jquery/dist'));
 app.use('/js', express.static(dirNode_modules + '/popper.js/dist'));
 app.use('/js', express.static(dirNode_modules + '/bootstrap/dist/js'));
 
+const session = require('express-session');
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: true }
+}));
+
+app.use((req, res, next) => {
+    if (req.session.usuario) {
+        res.locals.sesion = true;
+        res.locals.nombre = req.session.nombre;
+        res.locals.rol = req.session.rol;
+    }
+    next();
+});
 
 app.use(bodyParser.urlencoded({ extended: false }));
 

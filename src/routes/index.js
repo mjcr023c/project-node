@@ -2,12 +2,22 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const hbs = require('hbs');
+const bcrypt = require('bcrypt');
 const funciones = require('../utils/funciones');
 const constantes = require('../utils/constants');
 const Usuario = require('./../models/usuario');
 
+const session = require('express-session');
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: true }
+}));
+
 const dirViews = path.join(__dirname, '../../templates/views');
 const dirPartials = path.join(__dirname, '../../templates/partials');
+
 
 console.log(dirViews);
 
@@ -34,6 +44,7 @@ app.get('/formulario', (req, res) => {
 app.post('/formulario', (req, res) => {
     let usuario = new Usuario({
         documentoIdentidad: req.body.documentoIdentidad,
+        password: bcrypt.hashSync(req.body.password, 10),
         nombre: req.body.nombre,
         correo: req.body.correo,
         telefono: req.body.telefono
@@ -82,6 +93,36 @@ app.post('/eliminarUsuario', (req, res) => {
                 return console.log(err);
             }
             res.render('usuarioEliminado', { eliminado: respuesta.nombre });
+        });
+});
+
+app.post('/ingresar', (req, res) => {
+    Usuario.findOne({ documentoIdentidad: req.body.username },
+        (err, usuario) => {
+            if (err) {
+                return console.log(err);
+            }
+            if (!usuario) {
+                return res.render('index', {
+                    tipoMensaje: constantes.alertas.danger,
+                    mensaje: constantes.mensajes.usuarioNoExiste
+                });
+            }
+            if (!bcrypt.compareSync(req.body.password, usuario.password)) {
+                return res.render('index', {
+                    tipoMensaje: constantes.alertas.danger,
+                    mensaje: constantes.mensajes.contrasenaInvalida
+                });
+            }
+            req.session.usuario = usuario._id;
+            req.session.nombre = usuario.nombre;
+            req.session.rol = usuario.rol;
+            res.render('home', {
+                usuario: usuario,
+                sesion: true,
+                nombre: req.session.nombre,
+                rol: req.session.rol
+            });
         });
 });
 

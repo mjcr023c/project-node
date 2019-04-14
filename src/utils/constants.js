@@ -4,7 +4,8 @@ const alertas = {
 }
 const mensajes = {
     usuarioNoExiste: 'Usuario no existe',
-    logoutSuccess: 'Cierre de sesión exitoso'
+    logoutSuccess: 'Cierre de sesión exitoso',
+    contrasenaInvalida: 'Contraseña invalida'
 }
 
 module.exports = {

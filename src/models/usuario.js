@@ -5,9 +5,13 @@ const Schema = mongoose.Schema;
 const usuarioSchema = new Schema({
     documentoIdentidad: {
         type: String,
-        require: true,
+        required: true,
         trim: true,
         unique: true
+    },
+    password: {
+        type: String,
+        required: true
     },
     nombre: {
         type: String,
@@ -27,6 +31,8 @@ const usuarioSchema = new Schema({
         enum: { values: ['aspirante', 'coordinador'] }
     }
 });
+
+mongoose.set('useCreateIndex', true);
 
 usuarioSchema.plugin(uniqueValidator);
 
