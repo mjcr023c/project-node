@@ -72,8 +72,9 @@ app.get('/verUsuarios', (req, res) => {
     });
 });
 
-app.get('/actualizarUsuario', (req, res) => {
-    res.render('actualizarUsuario');
+app.post('/formActualizarUsuario', (req, res) => {
+    res.render('formActualizarUsuario');
+
 });
 app.post('/actualizarUsuario', (req, res) => {
     Usuario.findOneAndUpdate({ documentoIdentidad: req.body.documentoIdentidad }, req.body, { new: true, runValidators: true, context: 'query' },
