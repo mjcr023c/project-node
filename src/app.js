@@ -43,7 +43,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //Routes
 app.use(require('./routes/index'));
 
-
+/*
 mongoose.connect('mongodb://localhost:27017/proyecto-node-js', { useNewUrlParser: true },
     (err, resultado) => {
         if (err) {
@@ -51,6 +51,16 @@ mongoose.connect('mongodb://localhost:27017/proyecto-node-js', { useNewUrlParser
         }
         console.log("Conectados");
     });
+*/
+//kfropQqWzk3D0VXm
+//user-project-node-js-2019
+
+mongoose.connect(process.env.URLDB, { useNewUrlParser: true }, (err, resultado) => {
+    if (err) {
+        return console.log(error)
+    }
+    console.log("conectado")
+});
 
 
 app.listen(process.env.PORT, () => {
