@@ -28,7 +28,7 @@ const usuarioSchema = new Schema({
         type: String,
         trim: true,
         default: 'aspirante',
-        enum: { values: ['aspirante', 'coordinador'] }
+        enum: { values: ['aspirante', 'coordinador', 'docente'] }
     }
 });
 
