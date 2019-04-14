@@ -6,14 +6,14 @@ const bcrypt = require('bcrypt');
 const funciones = require('../utils/funciones');
 const constantes = require('../utils/constants');
 const Usuario = require('./../models/usuario');
-
+/*
 const session = require('express-session');
 app.use(session({
     secret: 'keyboard cat',
     resave: false,
     saveUninitialized: true,
     cookie: { secure: true }
-}));
+}));*/
 
 const dirViews = path.join(__dirname, '../../templates/views');
 const dirPartials = path.join(__dirname, '../../templates/partials');
@@ -25,7 +25,7 @@ require('./../helpers/helpers');
 require('./../helpers/usuariosHelpers');
 
 
-global.usuario = undefined;
+//global.usuario = undefined;
 
 
 //hbs
@@ -64,27 +64,70 @@ app.post('/registroUsuario', (req, res) => {
 
 app.get('/verUsuarios', (req, res) => {
     // Usuario.find({ nombre: 'Josimar C' }).exec((err, respuesta) => {
-    Usuario.find({}).exec((err, respuesta) => {
-        if (err) {
-            return console.log(err);
-        }
-        res.render('verUsuarios', { listado: respuesta });
-    });
-});
 
-app.post('/formActualizarUsuario', (req, res) => {
-    res.render('formActualizarUsuario');
-
-});
-app.post('/actualizarUsuario', (req, res) => {
-    Usuario.findOneAndUpdate({ documentoIdentidad: req.body.documentoIdentidad }, req.body, { new: true, runValidators: true, context: 'query' },
-        (err, respuesta) => {
+    if (req.session.usuario) {
+        console.log(req.session.rol);
+        Usuario.find({}).exec((err, respuesta) => {
             if (err) {
                 return console.log(err);
             }
-            console.log(respuesta);
-            res.render('verUsuarios', { listado: [respuesta] });
+            res.render('verUsuarios', {
+                listado: respuesta,
+                usuario: req.session.usuario,
+                sesion: true,
+                nombre: req.session.nombre,
+                rol: req.session.rol
+            });
         });
+    } else {
+        res.render('index');
+    }
+});
+
+app.post('/formActualizarUsuario', (req, res) => {
+    if (req.session.usuario) {
+        Usuario.findOne({ documentoIdentidad: req.body.documentoIdentidad },
+            (err, usuario) => {
+                if (err) {
+                    return res.render('error');
+                }
+                if (usuario) {
+                    return res.render('formActualizarUsuario', {
+                        usuarioMod: usuario,
+                        usuario: req.session.usuario,
+                        sesion: true,
+                        nombre: req.session.nombre,
+                        rol: req.session.rol
+                    });
+                } else {
+                    return res.render('error');
+                }
+
+            });
+    } else {
+        res.render('index');
+    }
+
+});
+app.post('/actualizarUsuario', (req, res) => {
+    if (req.session.usuario) {
+        Usuario.findOneAndUpdate({ documentoIdentidad: req.body.documentoIdentidad }, req.body, { new: true, runValidators: true, context: 'query' },
+            (err, respuesta) => {
+                if (err) {
+                    return console.log(err);
+                }
+                console.log(respuesta);
+                res.render('verUsuarios', {
+                    listado: [respuesta],
+                    usuario: req.session.usuario,
+                    sesion: true,
+                    nombre: req.session.nombre,
+                    rol: req.session.rol
+                });
+            });
+    } else {
+        res.render('index');
+    }
 });
 
 app.post('/eliminarUsuario', (req, res) => {

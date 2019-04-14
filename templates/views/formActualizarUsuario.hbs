@@ -1,4 +1,4 @@
-{{>header}}
+{{>headerLogin}}
 
 <body class="text-center">
     <div class="container">
@@ -10,36 +10,44 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="documentoIdentidad">Documento de identidad</label>
-                            <input type="text" class="form-control" name="documentoIdentidad" placeholder="" value="" required="">
+                            <input type="text" class="form-control" name="documentoIdentidad" placeholder="{{usuarioMod.documentoIdentidad}}" value="{{usuarioMod.documentoIdentidad}}" required="true" readonly>
                             <div class="invalid-feedback">
                             Documento de identidad es requerido.
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="nombre">Nombre Completo</label>
-                            <input type="text" class="form-control" name="nombre" placeholder="" value="" required="">
+                            <input type="text" class="form-control" name="nombre" placeholder="{{usuarioMod.nombre}}" value="{{usuarioMod.nombre}}" required="">
                             <div class="invalid-feedback">
                             Nombre Completo es requerido.
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="correo">Correo <!--<span class="text-muted">(Optional)</span>--></label>
-                            <input type="email" class="form-control" name="correo" placeholder="you@example.com">
+                            <input type="email" class="form-control" name="correo" placeholder="{{usuarioMod.correo}}" value="{{usuarioMod.correo}}">
                             <div class="invalid-feedback">
                                 Por favor ingrese correo electronico.
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="telefono">Tel&eacute;fono</label>
-                            <input type="text" class="form-control" name="telefono" placeholder="5555555555" required="">
+                            <input type="text" class="form-control" name="telefono" placeholder="{{usuarioMod.telefono}}" required="" value="{{usuarioMod.telefono}}">
                             <div class="invalid-feedback">
                                 Ingrese numero telefonico.
                             </div>
                         </div>
+                        <div class="col-md-12 mb-6">
+                            <label for="rol">Rol</label>
+                            <select class="form-control" name="rol" >
+                                <option value="aspirante">Aspirante</option>
+                                <option value="coordinador">Coordinador</option>
+                                <option value="docente">Docente</option>
+                            </select>
+                        </div>
                         <hr class="mb-4">
                          <div class="col-md-4 mb-2"></div>
                         <div class="col-md-4 mb-2">
-                            <button class="btn btn-primary btn-lg btn-block" type="submit">Registrar</button>
+                            <button class="btn btn-primary btn-lg btn-block" type="submit">Modificar</button>
                         </div>
                          <div class="col-md-4 mb-2"></div>
                     </div>
