@@ -35,7 +35,16 @@ hbs.registerPartials(dirPartials);
 
 
 app.get('/', (req, res) => {
-    res.render('index');
+    if (req.session.usuario) {
+        res.render('home', {
+            usuario: req.session.usuario,
+            sesion: true,
+            nombre: req.session.nombre,
+            rol: req.session.rol
+        });
+    } else {
+        res.render('index');
+    }
 });
 
 app.get('/registroUsuario', (req, res) => {
@@ -66,7 +75,6 @@ app.get('/verUsuarios', (req, res) => {
     // Usuario.find({ nombre: 'Josimar C' }).exec((err, respuesta) => {
 
     if (req.session.usuario) {
-        console.log(req.session.rol);
         Usuario.find({}).exec((err, respuesta) => {
             if (err) {
                 return console.log(err);
