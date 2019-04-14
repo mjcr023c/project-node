@@ -41,7 +41,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(require('./routes/index'));
 
 
-mongoose.connect('mongodb://localhost:27017/asignaturas', { useNewUrlParser: true },
+mongoose.connect('mongodb://localhost:27017/proyecto-node-js', { useNewUrlParser: true },
     (err, resultado) => {
         if (err) {
             return console.log("No se conecto");

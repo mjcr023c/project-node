@@ -19,7 +19,7 @@ const dirViews = path.join(__dirname, '../../templates/views');
 const dirPartials = path.join(__dirname, '../../templates/partials');
 
 
-console.log(dirViews);
+
 
 require('./../helpers/helpers');
 require('./../helpers/usuariosHelpers');
@@ -38,10 +38,10 @@ app.get('/', (req, res) => {
     res.render('index');
 });
 
-app.get('/formulario', (req, res) => {
-    res.render('formulario');
+app.get('/registroUsuario', (req, res) => {
+    res.render('formRegistroUsuario');
 });
-app.post('/formulario', (req, res) => {
+app.post('/registroUsuario', (req, res) => {
     let usuario = new Usuario({
         documentoIdentidad: req.body.documentoIdentidad,
         password: bcrypt.hashSync(req.body.password, 10),
@@ -51,11 +51,11 @@ app.post('/formulario', (req, res) => {
     });
     usuario.save((err, resultado) => {
         if (err) {
-            res.render('formulariopost', {
+            res.render('respRegistroUsuario', {
                 respuesta: 'No se guardo el usuario ' + err
             });
         }
-        res.render('formulariopost', {
+        res.render('respRegistroUsuario', {
             respuesta: ' exitoso '
         });
     });
@@ -126,11 +126,11 @@ app.post('/ingresar', (req, res) => {
         });
 });
 
-
+/*
 app.get('/registrarse', (req, res) => {
     res.render('registrarse');
 });
-
+*/
 
 app.post('/login', (req, res) => {
     usuario = funciones.buscarUsuario(req.body.username);
@@ -196,7 +196,7 @@ app.post('/calculos', (req, res) => {
         nota3: parseInt(req.body.nota3)
     });
 });
-
+/*
 app.post('/registro', (req, res) => {
     res.render('registro', {
         documentoIdentidad: req.body.documentoIdentidad,
@@ -205,7 +205,7 @@ app.post('/registro', (req, res) => {
         telefono: req.body.telefono
     });
 });
-
+*/
 app.get('/crearCurso', (req, res) => {
     res.render('crearCurso', {
         usuario: usuario
