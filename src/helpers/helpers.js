@@ -41,8 +41,12 @@ hbs.registerHelper('crearCurso', (curso, id, modalidad, descripcion, valor, inte
 
 });
 
-hbs.registerHelper('listarCurso', () => {
+/*hbs.registerHelper('listarCurso', () => {
     return funciones.listarCurso();
+});*/
+
+hbs.registerHelper('listarCurso', (cursos) => {
+    return funciones.listarCurso(cursos);
 });
 
 hbs.registerHelper('crearInscripcion', (documento, correo, nombre, idCurso) => {

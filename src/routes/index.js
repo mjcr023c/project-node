@@ -6,6 +6,8 @@ const bcrypt = require('bcrypt');
 const funciones = require('../utils/funciones');
 const constantes = require('../utils/constants');
 const Usuario = require('./../models/usuario');
+const Curso = require('./../models/cursos');
+const Inscripcion = require('./../models/inscripcion');
 
 const session = require('express-session');
 app.use(session({
@@ -210,59 +212,105 @@ app.post('/registro', (req, res) => {
 app.get('/crearCurso', (req, res) => {
     res.render('crearCurso', {
         usuario: usuario
-    });
+    })
 });
 
 app.get('/inscribir', (req, res) => {
-    let cursos = funciones.listarCursos();
-
-    res.render('inscribir', {
-        cursos: cursos,
-        usuario: usuario
-    });
+    //let cursos = funciones.listarCursos();
+    Curso.find({}).exec((err, respuesta) => {
+        if (err) {
+            return console.log(err)
+        }
+        res.render('inscribir', {
+            cursos: respuesta,
+            usuario: usuario
+        })
+    })
 });
 
 app.get('/verCursos', (req, res) => {
-    let cursos = funciones.listarCursos();
+
+    Curso.find({}).exec((err, respuesta) => {
+        if (err) {
+            return console.log(err)
+        }
+        res.render('verCursos', {
+            usuario: usuario,
+            cursos: respuesta
+        })
+    })
+
+    /*let cursos = funciones.listarCursos();
     console.log(cursos);
     res.render('verCursos', {
         usuario: usuario,
         cursos: cursos
-    });
+    });*/
 });
 
 
 app.get('/verInscritos', (req, res) => {
-    let cursos = funciones.listarCursos();
+    //let cursos = funciones.listarCursos();
     let inscritos = funciones.listarAlumnos();
-    console.log(cursos);
-    res.render('verInscritos', {
-        usuario: usuario,
-        cursos: cursos,
-        inscritos: inscritos
-    });
+    Curso.find({}).exec((err, respuesta) => {
+        if (err) {
+            return console.log(err)
+        }
+        res.render('verInscritos', {
+            usuario: usuario,
+            cursos: respuesta,
+            inscritos: inscritos
+        })
+    })
 });
 
 app.post('/mensaje', (req, res) => {
-    res.render('mensaje', {
-        usuario: usuario,
-        curso: req.body.nombre,
+
+    let curso = new Curso({
+        nombre: req.body.nombre,
         id: parseInt(req.body.id),
         modalidad: req.body.modalidad,
         descripcion: req.body.descripcion,
         valor: req.body.valor,
-        intensidad: req.body.intensidad
-    });
+        intensidad: req.body.intensidad,
+        estado: 'disponible'
+    })
+
+    curso.save((err, resultado) => {
+        if (err) {
+            res.render('mensaje', {
+                usuario: usuario
+            })
+            console.log(err)
+        }
+        res.render('mensaje', {
+            usuario: usuario
+        })
+    })
 });
 
 app.post('/mensajeInscribir', (req, res) => {
-    res.render('mensajeInscribir', {
-        usuario: usuario,
+
+    let inscribir = new Inscripcion({
         documento: req.body.documento,
         correo: req.body.correo,
         nombre: req.body.nombre,
         curso: req.body.cursoDisponible
-    });
+    })
+
+    inscribir.save((err, resultado) => {
+        if (err) {
+            res.render('mensajeInscribir', {
+                usuario: usuario
+
+            })
+            console.log(err)
+        }
+        res.render('mensajeInscribir', {
+            usuario: usuario
+        })
+
+    })
 });
 
 app.get('/misCursos', (req, res) => {

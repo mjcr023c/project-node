@@ -16,12 +16,12 @@
                 <tbody>
                     {{#each cursos}}
                     <tr>
-                    <td>{{this.idCurso}}</td>
+                    <td>{{this.id}}</td>
                     <td>{{this.nombre}}</td>
-                    <td>{{this.descripcionCurso}}</td>
-                    <td>{{this.valorCurso}}</td>
-                    <td>{{this.modalidadCurso}}</td>
-                    <td>{{this.intensidadCurso}}</td>
+                    <td>{{this.descripcion}}</td>
+                    <td>{{this.valor}}</td>
+                    <td>{{this.modalidad}}</td>
+                    <td>{{this.intensidad}}</td>
                     <td>{{this.estado}}</td>
                     </tr>
                     {{/each}}
@@ -48,9 +48,9 @@
                     <h1>{{this.nombre}}</h1>
                         <a href="#demo" class="btn btn-primary" data-toggle="collapse">Ver Descripci&oacute;n</a>
                             <div id="demo" class="collapse">
-                                <p> Descripción:  {{this.descripcionCurso}}</p>  
-                                <p> Modalidad:  {{this.modalidadCurso}}</p>  
-                                <p> Intensidad Horaria: {{this.intensidadCurso}}</p>  
+                                <p> Descripción:  {{this.descripcion}}</p>  
+                                <p> Modalidad:  {{this.modalidad}}</p>  
+                                <p> Intensidad Horaria: {{this.intensidad}}</p>  
                             </div>
                  </div>
         </div>         

@@ -100,16 +100,25 @@ const listarUsuarios = () => {
 }
 
 
-const listarCurso = () => {
+/*const listarCurso = () => {
     try {
         cursos = require('../../cursos.json');
     } catch (error) {
         console.log('Error' + error);
         cursos = [];
     }
+}*/
+
+const listarCurso = (curso) => {
+    try {
+        cursos = curso;
+    } catch (error) {
+        console.log('Error' + error);
+        cursos = [];
+    }
 }
 
-const listarCursos = () => {
+/*const listarCursos = () => {
     try {
         cursos = require('../../cursos.json');
     } catch (error) {
@@ -117,7 +126,18 @@ const listarCursos = () => {
         cursos = [];
     }
     return cursos;
+}*/
+
+const listarCursos = (cursos) => {
+    try {
+        cursos = cursos
+    } catch (error) {
+        console.log('Error' + error);
+        cursos = [];
+    }
+    return cursos;
 }
+
 
 const obtenerInform = () => {
     try {
@@ -275,6 +295,7 @@ const listarAlumnos = () => {
     return encontrado;
 
 }
+
 
 module.exports = {
     crear,
