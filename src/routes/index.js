@@ -127,9 +127,9 @@ app.post('/actualizarUsuario', (req, res) => {
         Usuario.findOneAndUpdate({ documentoIdentidad: req.body.documentoIdentidad }, req.body, { new: true, runValidators: true, context: 'query' },
             (err, respuesta) => {
                 if (err) {
-                    return console.log(err);
+                    return res.render('error');
                 }
-                console.log(respuesta);
+
                 res.render('verUsuarios', {
                     listado: [respuesta],
                     usuario: req.session.usuario,
@@ -264,35 +264,55 @@ app.post('/registro', (req, res) => {
 });
 */
 app.get('/crearCurso', (req, res) => {
-    res.render('crearCurso', {
-        usuario: usuario
-    })
+    if (req.session.usuario) {
+        res.render('crearCurso', {
+            usuario: req.session.usuario,
+            sesion: true,
+            nombre: req.session.nombre,
+            rol: req.session.rol
+        });
+    } else {
+        res.render('index');
+    }
 });
 
 app.get('/inscribir', (req, res) => {
     //let cursos = funciones.listarCursos();
-    Curso.find({}).exec((err, respuesta) => {
-        if (err) {
-            return console.log(err)
-        }
-        res.render('inscribir', {
-            cursos: respuesta,
-            usuario: usuario
+    if (req.session.usuario) {
+        Curso.find({}).exec((err, respuesta) => {
+            if (err) {
+                return console.log(err)
+            }
+            res.render('inscribir', {
+                cursos: respuesta,
+                usuario: req.session.usuario,
+                sesion: true,
+                nombre: req.session.nombre,
+                rol: req.session.rol
+            })
         })
-    })
+    } else {
+        res.render('index');
+    }
 });
 
 app.get('/verCursos', (req, res) => {
-
-    Curso.find({}).exec((err, respuesta) => {
-        if (err) {
-            return console.log(err)
-        }
-        res.render('verCursos', {
-            usuario: usuario,
-            cursos: respuesta
+    if (req.session.usuario) {
+        Curso.find({}).exec((err, respuesta) => {
+            if (err) {
+                return console.log(err)
+            }
+            res.render('verCursos', {
+                cursos: respuesta,
+                usuario: req.session.usuario,
+                sesion: true,
+                nombre: req.session.nombre,
+                rol: req.session.rol
+            })
         })
-    })
+    } else {
+        res.render('index');
+    }
 
     /*let cursos = funciones.listarCursos();
     console.log(cursos);
@@ -319,65 +339,109 @@ app.get('/verInscritos', (req, res) => {
 });
 
 app.post('/mensaje', (req, res) => {
-
-    let curso = new Curso({
-        nombre: req.body.nombre,
-        id: parseInt(req.body.id),
-        modalidad: req.body.modalidad,
-        descripcion: req.body.descripcion,
-        valor: req.body.valor,
-        intensidad: req.body.intensidad,
-        estado: 'disponible'
-    })
-
-    curso.save((err, resultado) => {
-        if (err) {
-            res.render('mensaje', {
-                usuario: usuario
-            })
-            console.log(err)
-        }
-        res.render('mensaje', {
-            usuario: usuario
+    if (req.session.usuario) {
+        let curso = new Curso({
+            nombre: req.body.nombre,
+            id: parseInt(req.body.id),
+            modalidad: req.body.modalidad,
+            descripcion: req.body.descripcion,
+            valor: req.body.valor,
+            intensidad: req.body.intensidad,
+            estado: 'disponible'
         })
-    })
+
+        curso.save((err, resultado) => {
+            if (err) {
+                return res.render('mensaje', {
+                    respuesta: 'Ocurrio un error al crear el curso ' + err,
+                    usuario: req.session.usuario,
+                    sesion: true,
+                    nombre: req.session.nombre,
+                    rol: req.session.rol
+                });
+            }
+
+            if (!resultado) {
+                return res.render('mensaje', {
+                    respuesta: 'no se pudo crear el curso',
+                    usuario: req.session.usuario,
+                    sesion: true,
+                    nombre: req.session.nombre,
+                    rol: req.session.rol
+                });
+
+            }
+            res.render('mensaje', {
+                respuesta: 'Curso creado exitosamente',
+                usuario: req.session.usuario,
+                sesion: true,
+                nombre: req.session.nombre,
+                rol: req.session.rol
+            });
+
+        })
+    } else {
+        res.render('index');
+    }
+
 });
 
 app.post('/mensajeInscribir', (req, res) => {
-
-    let inscribir = new Inscripcion({
-        documento: req.body.documento,
-        correo: req.body.correo,
-        nombre: req.body.nombre,
-        curso: req.body.cursoDisponible
-    })
-
-    inscribir.save((err, resultado) => {
-        if (err) {
-            res.render('mensajeInscribir', {
-                usuario: usuario
-
-            })
-            console.log(err)
-        }
-        res.render('mensajeInscribir', {
-            usuario: usuario
+    if (req.session.usuario) {
+        let inscribir = new Inscripcion({
+            documento: req.body.documento,
+            correo: req.body.correo,
+            nombre: req.body.nombre,
+            curso: req.body.cursoDisponible
         })
 
-    })
+        inscribir.save((err, resultado) => {
+            if (err) {
+                return res.render('mensajeInscribir', {
+                    respuesta: 'No se realizo la inscripcion ' + err,
+                    usuario: req.session.usuario,
+                    sesion: true,
+                    nombre: req.session.nombre,
+                    rol: req.session.rol
+                })
+
+            }
+            res.render('mensajeInscribir', {
+                respuesta: 'Se registro la inscripcion',
+                usuario: req.session.usuario,
+                sesion: true,
+                nombre: req.session.nombre,
+                rol: req.session.rol
+            })
+
+        })
+    } else {
+        res.render('index');
+    }
 });
 
 app.get('/misCursos', (req, res) => {
-    if (usuario == undefined) {
-        res.render('home', { usuario: usuario });
-    } else {
-        let cursos = funciones.buscarMisCursos(usuario.documentoIdentidad);
-        console.log(cursos);
-        res.render('misCursos', {
-            usuario: usuario,
-            cursos: cursos
+    if (req.session.usuario) {
+        // let cursos = funciones.buscarMisCursos(usuario.documentoIdentidad);
 
-        });
+        Inscripcion.find({ nombre: req.session.nombre },
+            (err, cursos) => {
+                if (err) {
+                    return console.log(err);
+                }
+
+                res.render('misCursos', {
+                    cursos: cursos,
+                    usuario: req.session.usuario,
+                    sesion: true,
+                    nombre: req.session.nombre,
+                    rol: req.session.rol
+                });
+            });
+
+
+    } else {
+        res.render('index');
     }
 });
 

@@ -1,5 +1,6 @@
 const hbs = require('hbs');
 const funciones = require('../utils/funciones');
+const Curso = require('./../models/cursos');
 
 hbs.registerHelper('obtenerPromedio', (nota1, nota2, nota3) => {
     return (nota1 + nota2 + nota3) / 3;
@@ -65,4 +66,15 @@ hbs.registerHelper('crearInscripcion', (documento, correo, nombre, idCurso) => {
         return 'Curso no existe'
     }
 
+});
+
+hbs.registerHelper('getNombreCurso', (idCurso) => {
+    Curso.findOne({ id: idCurso },
+        (err, curso) => {
+            if (err) {
+                return 'ss';
+            }
+
+            return curso;
+        });
 });
