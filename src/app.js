@@ -19,14 +19,17 @@ app.use('/js', express.static(dirNode_modules + '/popper.js/dist'));
 app.use('/js', express.static(dirNode_modules + '/bootstrap/dist/js'));
 
 const session = require('express-session');
+
 app.use(session({
+    cookie: { maxAge: 86400000 },
     secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: true }
-}));
+    resave: true,
+    saveUninitialized: true
+}))
+
 
 app.use((req, res, next) => {
+
     if (req.session.usuario) {
         res.locals.sesion = true;
         res.locals.nombre = req.session.nombre;
@@ -40,7 +43,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //Routes
 app.use(require('./routes/index'));
 
-
+/*
 mongoose.connect('mongodb://localhost:27017/proyecto-node-js', { useNewUrlParser: true },
     (err, resultado) => {
         if (err) {
@@ -48,6 +51,16 @@ mongoose.connect('mongodb://localhost:27017/proyecto-node-js', { useNewUrlParser
         }
         console.log("Conectados");
     });
+*/
+//kfropQqWzk3D0VXm
+//user-project-node-js-2019
+
+mongoose.connect(process.env.URLDB, { useNewUrlParser: true }, (err, resultado) => {
+    if (err) {
+        return console.log(error)
+    }
+    console.log("conectado")
+});
 
 
 app.listen(process.env.PORT, () => {
