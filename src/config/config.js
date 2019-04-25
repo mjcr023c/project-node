@@ -9,4 +9,6 @@ if (process.env.NODE_ENV === 'local') {
     urlDB = 'mongodb+srv://user-project-node-js-2019:kfropQqWzk3D0VXm@proyecto-node-js-e6i3t.mongodb.net/test?retryWrites=true'
 }
 
+process.env.SENDGRID_API_KEY = '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';
+
 process.env.URLDB = urlDB

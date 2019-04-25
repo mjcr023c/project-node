@@ -6,7 +6,7 @@
             <div class="col-md-2 order-md-1"></div>
             <div class="col-md-8 order-md-1">
              <h4 class="mb-3">Informaci&oacute;n de Registro</h4>
-                <form class="needs-validation" action="/registroUsuario" method="post">
+                <form class="needs-validation" action="/registroUsuario" method="post" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="documentoIdentidad">Documento de identidad</label>
@@ -37,11 +37,18 @@
                                 Por favor ingrese correo electronico.
                             </div>
                         </div>
-                        <div class="col-md-12 mb-3">
+                        <div class="col-md-6 mb-3">
                             <label for="telefono">Tel&eacute;fono</label>
                             <input type="text" class="form-control" name="telefono" placeholder="5555555555" required="">
                             <div class="invalid-feedback">
                                 Ingrese numero telefonico.
+                            </div>
+                        </div>
+                         <div class="col-md-6 mb-3">
+                            <label for="archivo">Foto de Perfil</label>
+                            <input accept="image/png" type="file" class="form-control" name="archivo" placeholder="Ingrese foto de perfil" required="">
+                            <div class="invalid-feedback">
+                                Foto de perfil.
                             </div>
                         </div>
                         <hr class="mb-4">

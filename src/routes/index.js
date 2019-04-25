@@ -8,7 +8,29 @@ const constantes = require('../utils/constants');
 const Usuario = require('./../models/usuario');
 const Curso = require('./../models/cursos');
 const Inscripcion = require('./../models/inscripcion');
-
+const multer = require('multer')
+    /*const storage = multer.diskStorage({
+        destination: function(req, file, cb) {
+            cb(null, 'public/uploads')
+        },
+        filename: function(req, file, cb) {
+            cb(null, req.body.documentoIdentidad + path.extname(file.originalname))
+        }
+    })
+const upload = multer({ storage: storage });*/
+const upload = multer({
+    limits: {
+        fileSize: 10000000
+    },
+    fileFilter(req, file, cb) {
+        if (!file.originalname.match(/\.(png)$/)) {
+            return cb(new Error('No es un archivo valido!'))
+        }
+        cb(null, true);
+    }
+});
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 /*
 >>>>>>> be7dcebe4aba55f630a0ee318d00828e10f4d3a1
@@ -38,7 +60,6 @@ app.set('view engine', 'hbs');
 app.set('views', dirViews);
 hbs.registerPartials(dirPartials);
 
-
 app.get('/', (req, res) => {
     if (req.session.usuario) {
         res.render('home', {
@@ -55,13 +76,14 @@ app.get('/', (req, res) => {
 app.get('/registroUsuario', (req, res) => {
     res.render('formRegistroUsuario');
 });
-app.post('/registroUsuario', (req, res) => {
+app.post('/registroUsuario', upload.single('archivo'), (req, res) => {
     let usuario = new Usuario({
         documentoIdentidad: req.body.documentoIdentidad,
         password: bcrypt.hashSync(req.body.password, 10),
         nombre: req.body.nombre,
         correo: req.body.correo,
-        telefono: req.body.telefono
+        telefono: req.body.telefono,
+        avatar: req.file.buffer
     });
     usuario.save((err, resultado) => {
         if (err) {
@@ -69,6 +91,13 @@ app.post('/registroUsuario', (req, res) => {
                 respuesta: 'No se guardo el usuario ' + err
             });
         }
+        let msg = {
+            to: req.body.correo,
+            from: 'contactos@education.com',
+            subject: 'Bienvenid@',
+            text: 'Bienvenid@ a la página de Node.JS'
+        };
+        sgMail.send(msg);
         res.render('respRegistroUsuario', {
             respuesta: ' exitoso '
         });
@@ -91,6 +120,7 @@ app.get('/verUsuarios', (req, res) => {
                 nombre: req.session.nombre,
                 rol: req.session.rol
             });
+            avatar
         });
     } else {
         res.render('index');
@@ -174,11 +204,18 @@ app.post('/ingresar', (req, res) => {
             req.session.usuario = usuario._id;
             req.session.nombre = usuario.nombre;
             req.session.rol = usuario.rol;
+            console.log(usuario.avatar);
+            let avatar = 'img/avatar.jpg';
+            if (usuario.avatar) {
+                console.log('sds');
+                avatar = usuario.avatar.toString('base64');
+            }
             res.render('home', {
                 usuario: usuario,
                 sesion: true,
                 nombre: req.session.nombre,
-                rol: req.session.rol
+                rol: req.session.rol,
+                avatar: avatar
             });
         });
 });

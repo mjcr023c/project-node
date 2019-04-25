@@ -19,6 +19,7 @@ const usuarioSchema = new Schema({
     },
     correo: {
         type: String,
+        required: true,
         trim: true
     },
     telefono: {
@@ -29,6 +30,9 @@ const usuarioSchema = new Schema({
         trim: true,
         default: 'aspirante',
         enum: { values: ['aspirante', 'coordinador', 'docente'] }
+    },
+    avatar: {
+        type: Buffer
     }
 });
 
