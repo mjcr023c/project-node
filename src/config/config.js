@@ -11,4 +11,4 @@ if (process.env.NODE_ENV === 'local') {
 
 process.env.SENDGRID_API_KEY = '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';
 
-process.env.URLDB = urlDB
+process.env.URLDB = urlDB;

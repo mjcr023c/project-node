@@ -33,7 +33,6 @@ const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 /*
->>>>>>> be7dcebe4aba55f630a0ee318d00828e10f4d3a1
 const session = require('express-session');
 app.use(session({
     secret: 'keyboard cat',
