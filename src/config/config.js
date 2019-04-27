@@ -1,3 +1,4 @@
+const Properties = require('./../models/properties');
 process.env.PORT = process.env.PORT || 3000;
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'local';
@@ -9,6 +10,21 @@ if (process.env.NODE_ENV === 'local') {
     urlDB = 'mongodb+srv://user-project-node-js-2019:kfropQqWzk3D0VXm@proyecto-node-js-e6i3t.mongodb.net/test?retryWrites=true'
 }
 
-process.env.SENDGRID_API_KEY = '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';
+process.env.SENDGRID_API_KEY = Properties.findOne({ nombre: 'api-key-correo' },
+    (err, propiedad) => {
+        if (err) {
+            return '';
+
+        }
+        if (propiedad) {
+            return propiedad.valor;
+
+        } else {
+            return '';
+        }
+
+    });
+
+console.log('sdfsdf' + process.env.SENDGRID_API_KEY);
 
 process.env.URLDB = urlDB;
