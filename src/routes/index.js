@@ -6,6 +6,7 @@ const bcrypt = require('bcrypt');
 const funciones = require('../utils/funciones');
 const constantes = require('../utils/constants');
 const Usuario = require('./../models/usuario');
+const Contacto = require('./../models/contacto');
 const Curso = require('./../models/cursos');
 const Inscripcion = require('./../models/inscripcion');
 const multer = require('multer');
@@ -90,10 +91,40 @@ app.get('/', (req, res) => {
         res.render('index');
     }
 });
+app.get('/contactanos', (req, res) => {
+    res.render('formContactanos');
+});
+
+app.post('/enviaMensajeCreador', (req, res) => {
+    let contacto = new Contacto({
+        nombre: req.body.nombre,
+        correo: req.body.correo,
+        mensaje: req.body.mensaje
+    });
+    contacto.save((err, resultado) => {
+        if (err) {
+            res.render('respContacto', {
+                respuesta: 'No se envio el mensaje' + err
+            });
+        }
+        let msg = {
+            to: req.body.correo,
+            from: 'contactos@education.com',
+            subject: 'Gracias por Contactarnos',
+            text: 'Pronto lo contactaremos'
+        };
+        sgMail.send(msg);
+        res.render('respContacto', {
+            respuesta: ' exitoso '
+        });
+    });
+});
+
 
 app.get('/registroUsuario', (req, res) => {
     res.render('formRegistroUsuario');
 });
+
 app.post('/registroUsuario', upload.single('archivo'), (req, res) => {
     let usuario = new Usuario({
         documentoIdentidad: req.body.documentoIdentidad,
