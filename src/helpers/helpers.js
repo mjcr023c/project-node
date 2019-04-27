@@ -68,13 +68,13 @@ hbs.registerHelper('crearInscripcion', (documento, correo, nombre, idCurso) => {
 
 });
 
-hbs.registerHelper('getNombreCurso', (idCurso) => {
+hbs.registerHelper('getNombreCurso', (idCurso, callback) => {
     Curso.findOne({ id: idCurso },
         (err, curso) => {
             if (err) {
-                return 'ss';
+                return '';
             }
-
+            // callback();
             return curso;
         });
 });

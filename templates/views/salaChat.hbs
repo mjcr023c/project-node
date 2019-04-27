@@ -1,0 +1,22 @@
+{{>headerLogin}}
+
+<body class="text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 order-md-1"></div>
+            <div class="col-md-8 order-md-1">
+             <h4 class="mb-3"Sala Chat</p>
+             <form id="formulario" action= "/salaChat">
+             
+                <input type="text" id="nombreChat">
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Enviar</button>
+
+             
+             </form>
+             </div>
+        </div>
+    </div>
+    <div id="chat"></div>
+    <script src="socket.io/socket.io.js"></script>
+    <script src="js/sockets.js"></script>
+</body>

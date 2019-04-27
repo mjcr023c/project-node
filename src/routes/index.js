@@ -61,6 +61,23 @@ app.set('view engine', 'hbs');
 app.set('views', dirViews);
 hbs.registerPartials(dirPartials);
 
+app.get('/chat', (req, res) => {
+    if (req.session.usuario) {
+        res.render('chat', {
+            usuario: req.session.usuario,
+            sesion: true,
+            nombre: req.session.nombre,
+            rol: req.session.rol
+        });
+    } else {
+        res.render('index');
+    }
+});
+
+app.post('/salaChat', (req, res) => {
+    res.render('salaChat');
+});
+
 app.get('/', (req, res) => {
     if (req.session.usuario) {
         res.render('home', {

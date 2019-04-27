@@ -71,11 +71,7 @@ app.listen(process.env.PORT, () => {
 */
 var contador = 0;
 io.on('connection', client => {
-    //  console.log('un usuario se ha conectado');
-    //   client.emit("mensaje", "Bienvenido");
-    client.on("mensaje", (informacion) => {
-        io.emit("contador", contador);
-    });
+
     client.on("contador", (signo) => {
         if (signo == '+') {
             contador++;
@@ -88,6 +84,28 @@ io.on('connection', client => {
 
         io.emit("contador", contador);
     });
+
+    client.on("mensaje", (informacion) => {
+        //console.log(informacion)
+    })
+
+    client.on('usuarioNuevo', (usuario) => {
+        let texto = 'Se ha conectado un nuevo usuario'
+
+        io.emit('nuevoUsuario', texto)
+    })
+
+    client.on('disconnect', () => {
+        let texto = 'Se ha desconectado ';
+        io.emit('usuarioDesconectado', texto)
+    })
+
+    client.on("texto", (text, callback) => {
+        // console.log(text)
+        io.emit("texto", (text))
+        callback()
+    })
+
 
 });
 
