@@ -28,8 +28,11 @@
 		        <a class="nav-link" href="/verUsuarios">VER USUARIOS</a>
 		      </li>
           {{/ifCond}}
+		      <li class="nav-item">
+		        <a class="nav-link" href="/chat">CHAT</a>
+		      </li>
 		    </ul>
-		    <form class="form-inline my-2 my-lg-0" action="/logout">
+		    <form class="form-inline my-2 my-lg-0" id="formLogout" action="/logout">
 		      <label>{{nombre}}</label>
 		      <button class="btn btn-danger my-2 my-sm-0" type="submit">Salir</button>
           

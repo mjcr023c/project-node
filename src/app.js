@@ -5,6 +5,8 @@ const path = require('path');
 const mongoose = require('mongoose');
 const hbs = require('hbs');
 const bodyParser = require('body-parser');
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
 
 //Path
 const dirPublic = path.join(__dirname, '../public');
@@ -62,7 +64,33 @@ mongoose.connect(process.env.URLDB, { useNewUrlParser: true }, (err, resultado) 
     console.log("conectado")
 });
 
-
+/*
 app.listen(process.env.PORT, () => {
     console.log('Escuchando por el puerto ' + process.env.PORT);
+});
+*/
+var contador = 0;
+io.on('connection', client => {
+    //  console.log('un usuario se ha conectado');
+    //   client.emit("mensaje", "Bienvenido");
+    client.on("mensaje", (informacion) => {
+        io.emit("contador", contador);
+    });
+    client.on("contador", (signo) => {
+        if (signo == '+') {
+            contador++;
+        } else if (signo == '-') {
+            contador--;
+        }
+        if (contador < 0) {
+            contador = 0;
+        }
+
+        io.emit("contador", contador);
+    });
+
+});
+
+server.listen(process.env.PORT, (err) => {
+    console.log('Servidor en el puerto ' + process.env.PORT);
 });

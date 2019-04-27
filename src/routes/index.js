@@ -8,8 +8,10 @@ const constantes = require('../utils/constants');
 const Usuario = require('./../models/usuario');
 const Curso = require('./../models/cursos');
 const Inscripcion = require('./../models/inscripcion');
-const multer = require('multer')
-    /*const storage = multer.diskStorage({
+const multer = require('multer');
+
+
+/*const storage = multer.diskStorage({
         destination: function(req, file, cb) {
             cb(null, 'public/uploads')
         },
@@ -94,7 +96,7 @@ app.post('/registroUsuario', upload.single('archivo'), (req, res) => {
             to: req.body.correo,
             from: 'contactos@education.com',
             subject: 'Bienvenid@',
-            text: 'Bienvenid@ a la página de Node.JS'
+            text: 'Bienvenid@ a la página Education'
         };
         sgMail.send(msg);
         res.render('respRegistroUsuario', {
@@ -119,7 +121,7 @@ app.get('/verUsuarios', (req, res) => {
                 nombre: req.session.nombre,
                 rol: req.session.rol
             });
-            avatar
+
         });
     } else {
         res.render('index');
@@ -149,8 +151,8 @@ app.post('/formActualizarUsuario', (req, res) => {
     } else {
         res.render('index');
     }
-
 });
+
 app.post('/actualizarUsuario', (req, res) => {
     if (req.session.usuario) {
         Usuario.findOneAndUpdate({ documentoIdentidad: req.body.documentoIdentidad }, req.body, { new: true, runValidators: true, context: 'query' },
@@ -158,7 +160,6 @@ app.post('/actualizarUsuario', (req, res) => {
                 if (err) {
                     return res.render('error');
                 }
-
                 res.render('verUsuarios', {
                     listado: [respuesta],
                     usuario: req.session.usuario,
@@ -203,11 +204,9 @@ app.post('/ingresar', (req, res) => {
             req.session.usuario = usuario._id;
             req.session.nombre = usuario.nombre;
             req.session.rol = usuario.rol;
-            console.log(usuario.avatar);
             let avatar = 'img/avatar.jpg';
             if (usuario.avatar) {
-                console.log('sds');
-                avatar = usuario.avatar.toString('base64');
+                avatar = 'data:img/png;base64,' + usuario.avatar.toString('base64');
             }
             res.render('home', {
                 usuario: usuario,
