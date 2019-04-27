@@ -33,8 +33,9 @@ const upload = multer({
     }
 });
 const sgMail = require('@sendgrid/mail');
+/*console.log('12_:' + process.env.SENDGRID_API_KEY);
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-
+*/
 /*
 const session = require('express-session');
 app.use(session({
@@ -109,11 +110,14 @@ app.post('/enviaMensajeCreador', (req, res) => {
         }
         let msg = {
             to: req.body.correo,
-            from: 'contactos@education.com',
+            from: process.env.SENDGRID_API_KEY_CORREO,
             subject: 'Gracias por Contactarnos',
             text: 'Pronto lo contactaremos'
         };
-        sgMail.send(msg);
+        sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+        sgMail.send(msg).catch((error) => {
+            // console.log(error);
+        });
         res.render('respContacto', {
             respuesta: ' exitoso '
         });
@@ -142,11 +146,14 @@ app.post('/registroUsuario', upload.single('archivo'), (req, res) => {
         }
         let msg = {
             to: req.body.correo,
-            from: 'contactos@education.com',
+            from: process.env.SENDGRID_API_KEY_CORREO,
             subject: 'Bienvenid@',
             text: 'Bienvenid@ a la página Education'
         };
-        sgMail.send(msg);
+        sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+        sgMail.send(msg).catch((error) => {
+            //   console.log(error);
+        });
         res.render('respRegistroUsuario', {
             respuesta: ' exitoso '
         });
@@ -155,8 +162,6 @@ app.post('/registroUsuario', upload.single('archivo'), (req, res) => {
 });
 
 app.get('/verUsuarios', (req, res) => {
-    // Usuario.find({ nombre: 'Josimar C' }).exec((err, respuesta) => {
-
     if (req.session.usuario) {
         Usuario.find({}).exec((err, respuesta) => {
             if (err) {
@@ -266,11 +271,7 @@ app.post('/ingresar', (req, res) => {
         });
 });
 
-/*
-app.get('/registrarse', (req, res) => {
-    res.render('registrarse');
-});
-*/
+
 
 app.post('/login', (req, res) => {
     usuario = funciones.buscarUsuario(req.body.username);
@@ -296,7 +297,7 @@ app.get('/logout', (req, res) => {
 app.get('/modificarUsuario', (req, res) => {
     if (usuario != undefined && usuario.rol == 'coordinador') {
         let usuarios = funciones.listarUsuarios();
-        console.log(usuarios);
+        //console.log(usuarios);
         res.render('modificarUsuario', {
             usuario: usuario,
             usuarios: usuarios
@@ -327,8 +328,8 @@ app.post('/modificarUsuario', (req, res) => {
 });
 
 app.post('/calculos', (req, res) => {
-    console.log(req.body);
-    console.log(cursos);
+    //console.log(req.body);
+    // console.log(cursos);
     res.render('calculos', {
         estudiante: req.query.nombre,
         nota1: parseInt(req.body.nota1),
