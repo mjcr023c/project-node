@@ -36,3 +36,26 @@ hbs.registerHelper('mostrar', (listado) => {
     texto = texto + `</tbody></table>`
     return texto;
 });
+
+hbs.registerHelper('mostrarMensajesContactos', (listado) => {
+    let texto = `
+                 <table class='table table-striped table-hover'>
+                    <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Correo</th>
+                        <th>Mensajes</th>
+                    </tr>
+                    </thead>
+                    <tbody>`;
+    listado.forEach(usuario => {
+        texto = texto +
+            `<tr>
+        <td>${usuario.nombre}</td>
+        <td>${usuario.correo}</td>
+        <td>${usuario.mensaje}</td>
+        </tr>`
+    })
+    texto = texto + `</tbody></table>`
+    return texto;
+});

@@ -528,6 +528,26 @@ app.get('/misCursos', (req, res) => {
     }
 });
 
+app.get('/verMisMensajes', (req, res) => {
+    if (req.session.usuario) {
+        Contacto.find({}).exec((err, respuesta) => {
+            if (err) {
+                return console.log(err);
+            }
+            res.render('verMensajes', {
+                listado: respuesta,
+                usuario: req.session.usuario,
+                sesion: true,
+                nombre: req.session.nombre,
+                rol: req.session.rol
+            });
+
+        });
+    } else {
+        res.render('index');
+    }
+});
+
 app.get('*', (req, res) => {
     res.render('error');
 })
