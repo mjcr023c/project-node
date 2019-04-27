@@ -25,6 +25,4 @@ process.env.SENDGRID_API_KEY = Properties.findOne({ nombre: 'api-key-correo' },
 
     });
 
-console.log('sdfsdf' + process.env.SENDGRID_API_KEY);
-
 process.env.URLDB = urlDB;
